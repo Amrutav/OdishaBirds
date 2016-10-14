@@ -1,7 +1,10 @@
 package bird.service;
 
 import bird.dao.BirdDao;
+
 import bird.entity.Bird;
+import bird.entity.BirdBean;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ public class BirdServiceImpl implements BirdService{
         return birdDao.addBird(bird);
     }
 
-    public List<Bird> getBirdListByCategoryId(int categoryId)throws Exception{
+    public List<BirdBean> getBirdListByCategoryId(int categoryId)throws Exception{
         return birdDao.getBirdListByCategoryId(categoryId);
     }
 }

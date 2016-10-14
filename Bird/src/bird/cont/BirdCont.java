@@ -91,9 +91,9 @@ public class BirdCont
     }
 
     @RequestMapping(value="/BirdListByCategoryId", method = RequestMethod.GET)
-    public @ResponseBody List<Bird> getBirdListByCategoryId(@RequestParam(value = "categoryId")int categoryId)
+    public @ResponseBody List<BirdBean> getBirdListByCategoryId(@RequestParam(value = "categoryId")int categoryId)
     {
-        List<Bird> birdListByCategoryId = new ArrayList<Bird>();
+        List<BirdBean> birdListByCategoryId = new ArrayList<BirdBean>();
         try
         {
             System.out.println("HELLO");

@@ -69,8 +69,8 @@ public class ImageCont{
     }
 
     @RequestMapping(value="/BirdImageListByBirdId",method=RequestMethod.GET)
-    public @ResponseBody List<Image> getBirdImageListByBirdId(@RequestParam(value="birdId",required=false)int birdId){
-        List<Image> birdImageListByBirdId = new ArrayList<Image>();
+    public @ResponseBody List<ImageBean> getBirdImageListByBirdId(@RequestParam(value="birdId",required=false)int birdId){
+        List<ImageBean> birdImageListByBirdId = new ArrayList<ImageBean>();
         try{
             System.out.println("HELLO");
             birdImageListByBirdId = imageServices.birdImageListByBirdId(birdId);
