@@ -1,9 +1,16 @@
 package bird.entity;
 
 public class BIrdBeans {
+	private int birdId;
 	private String birdName;
 	private String brdImage;
 	private int catId;
+	public int getBirdId() {
+		return birdId;
+	}
+	public void setBirdId(int birdId) {
+		this.birdId = birdId;
+	}
 	public String getBirdName() {
 		return birdName;
 	}

@@ -106,7 +106,7 @@ public class BirdDaoImpl implements BirdDao{
         {
             session = sessionfactory.openSession();
             transaction = session.beginTransaction();
-            String sql = "SELECT BirdName,BirdImage,CatId FROM tbl_image WHERE CatdId = "+categoryId;
+            String sql = "SELECT BirdName,BirdImage,CatId,BirdId FROM tbl_bird WHERE CatId = "+categoryId;
             Query query = session.createSQLQuery(sql);
             temp=query.list();
             if(temp != null && temp.size()!=0){
@@ -116,6 +116,7 @@ public class BirdDaoImpl implements BirdDao{
             		bean.setBirdName((String) img[0]);
             		bean.setBrdImage((String) img[1]);
             		bean.setCatId((int) img[2]);
+            		bean.setBirdId((int) img[3]);
             		getBirdImageListbyBirdId.add(bean);
             	}
             }
