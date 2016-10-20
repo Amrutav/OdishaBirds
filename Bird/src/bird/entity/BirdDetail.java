@@ -11,16 +11,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="tbl_bird")
-public class Bird
+@Table(name="tbl_bird_detail")
+public class BirdDetail
 {
 	@Id
 	@GenericGenerator(name="bird",strategy="increment")
 	@GeneratedValue(generator="bird")
-	@Column(name="BirdId")
-    private int birdId;
-	@Column(name="BirdName")
-    private String birdName;
+	@Column(name="BirdDetailId")
+    private int birdDetailId;
 	@Column(name="BirdSound")
     private String birdSound;
 	@Column(name="BirdColor")
@@ -44,17 +42,17 @@ public class Bird
 	@Column(name="BirdNestPeriod")
     private String birdNestPeriod;
 	@ManyToOne
-	@JoinColumn(name="CategoryId")
-    private Category category;
+	@JoinColumn(name="BdId")
+    private BIrd bird;
 	
-    public int getBirdId()
+    public int getBirdDetailId()
     {
-        return birdId;
+        return birdDetailId;
     }
 
-    public void setBirdId(int birdId)
+    public void setBirdDetailId(int birdId)
     {
-        this.birdId = birdId;
+        this.birdDetailId = birdId;
     }
 
     public String getBirdColor()
@@ -157,22 +155,15 @@ public class Bird
         this.birdNestPeriod = birdNestPeriod;
     }
 
-    public void setCategory(Category category)
-    {
-        this.category = category;
-    }
+    public BIrd getBird() {
+		return bird;
+	}
 
-    public String getBirdName()
-    {
-        return birdName;
-    }
+	public void setBird(BIrd bird) {
+		this.bird = bird;
+	}
 
-    public void setBirdName(String birdName)
-    {
-        this.birdName = birdName;
-    }
-
-    public String getBirdSound()
+	public String getBirdSound()
     {
         return birdSound;
     }
@@ -182,13 +173,4 @@ public class Bird
         this.birdSound = birdSound;
     }
 
-    public Category getCategory()
-    {
-        return category;
-    }
-
-    public void setCategory(Object setCategoryId)
-    {
-        category = (Category)setCategoryId;
-    }
 }

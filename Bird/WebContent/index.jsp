@@ -11,6 +11,7 @@
 	<ul>
 	<li><a href="addCategory.jsp"> Add Bird Category</a></li>
 	<li><a href="addBird.jsp"> Add Birds</a></li>
+	<li><a href="addBirdDetails.jsp"> Add Bird Details</a></li>
 	<li><a href="addBirdImage.jsp"> Add Bird Images</a></li>
 	</ul>
 </body>

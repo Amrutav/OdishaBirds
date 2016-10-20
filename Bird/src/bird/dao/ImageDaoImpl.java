@@ -40,7 +40,7 @@ public class ImageDaoImpl implements ImageDao{
         {
             session = sessionfactory.openSession();
             transaction = session.beginTransaction();
-            String sql = "SELECT ImageName,ImagePath FROM tbl_image WHERE BirdId = "+birdId;
+            String sql = "SELECT ImageName,ImagePath,BirdId FROM tbl_image WHERE BirdId = "+birdId;
             Query query = session.createSQLQuery(sql);
             temp=query.list();
             if(temp != null && temp.size()!=0){
@@ -49,6 +49,7 @@ public class ImageDaoImpl implements ImageDao{
             		ImageBean bean=new ImageBean();
             		bean.setImageName((String) img[0]);
             		bean.setImagePath((String) img[1]);
+            		bean.setBirdId((int) img[2]);
             		getBirdImageListbyBirdId.add(bean);
             	}
             }

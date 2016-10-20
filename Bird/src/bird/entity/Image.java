@@ -25,7 +25,7 @@ public class Image
     private String imagePath;
 	@ManyToOne
 	@JoinColumn(name="BirdId")
-    private Bird bird;
+    private BIrd bird;
 
     public String getImageName()
     {
@@ -57,12 +57,12 @@ public class Image
         this.imagePath = imagePath;
     }
 
-    public Bird getBird()
+    public BIrd getBird()
     {
         return bird;
     }
 
-    public void setBird(Bird bird)
+    public void setBird(BIrd bird)
     {
         this.bird = bird;
     }

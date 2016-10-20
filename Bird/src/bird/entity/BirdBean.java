@@ -2,7 +2,6 @@ package bird.entity;
 
 
 public class BirdBean {
-	private String birdName;
 	private String birdSound;
     private String birdColor;
     private String birdDetails;
@@ -14,12 +13,7 @@ public class BirdBean {
     private String birdVisibility;
     private String birdMigrtStatus;
     private String birdNestPeriod;
-	public String getBirdName() {
-		return birdName;
-	}
-	public void setBirdName(String birdName) {
-		this.birdName = birdName;
-	}
+    private int birdId;
 	public String getBirdSound() {
 		return birdSound;
 	}
@@ -85,6 +79,12 @@ public class BirdBean {
 	}
 	public void setBirdNestPeriod(String birdNestPeriod) {
 		this.birdNestPeriod = birdNestPeriod;
+	}
+	public int getBirdId() {
+		return birdId;
+	}
+	public void setBirdId(int birdId) {
+		this.birdId = birdId;
 	}
     
 }

@@ -7,7 +7,7 @@ public class BirdJsonResponse
 
     private String status;
     private Map errorsMap;
-    private Bird bird;
+    private BirdDetail bird;
 
     public BirdJsonResponse()
     {
@@ -33,12 +33,12 @@ public class BirdJsonResponse
         this.errorsMap = errorsMap;
     }
 
-    public Bird getBird()
+    public BirdDetail getBird()
     {
         return bird;
     }
 
-    public void setBird(Bird bird)
+    public void setBird(BirdDetail bird)
     {
         this.bird = bird;
     }

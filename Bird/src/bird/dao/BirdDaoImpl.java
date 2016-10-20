@@ -1,6 +1,8 @@
 package bird.dao;
 
-import bird.entity.Bird;
+import bird.entity.BirdDetail;
+import bird.entity.BIrd;
+import bird.entity.BIrdBeans;
 import bird.entity.BirdBean;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class BirdDaoImpl implements BirdDao{
     Transaction transaction;
 
     @Override
-    public boolean addBird(Bird bird)throws Exception{
+    public boolean addBird(BirdDetail bird)throws Exception{
         boolean b = false;
         try
         {
@@ -35,21 +37,21 @@ public class BirdDaoImpl implements BirdDao{
     }
 
     @Override
-    public List<BirdBean> getBirdListByCategoryId(int categoryId)throws Exception{
+    public List<BirdBean> getBirdListByCategoryId(int birdId)throws Exception{
         List<BirdBean> getBirdListbyCategoryId = new ArrayList<BirdBean>();
         List temp=null;
         try
         {
             session = sessionfactory.openSession();
             transaction = session.beginTransaction();
-            String sql = "SELECT BirdName,BirdSound,BirdColor,BirdDetails,BirdFood,BirdPopulation,BirdAltName,BirdSciName,BirdResident,BirdVisibility,BirdMigrtStatus,BirdNestPeriod FROM tbl_bird WHERE CategoryId= "+categoryId;
+            String sql = "SELECT BdId,BirdSound,BirdColor,BirdDetails,BirdFood,BirdPopulation,BirdAltName,BirdSciName,BirdResident,BirdVisibility,BirdMigrtStatus,BirdNestPeriod FROM tbl_bird_detail WHERE BdId= "+birdId;
             Query query = session.createSQLQuery(sql);
             temp=query.list();
             if(temp != null && temp.size()!=0){
             	for(Object obj:temp){
             		Object[] bird=(Object[]) obj;
             		BirdBean bean=new BirdBean();
-            		bean.setBirdName((String) bird[0]);
+            		bean.setBirdId((int) bird[0]);
             		bean.setBirdSound((String) bird[1]);
             		bean.setBirdColor((String) bird[2]);
             		bean.setBirdDetails((String) bird[3]);
@@ -76,4 +78,76 @@ public class BirdDaoImpl implements BirdDao{
         }
         return getBirdListbyCategoryId;
     }
+
+	@Override
+	public boolean addNewBird(BIrd imageObj) throws Exception {
+		// TODO Auto-generated method stub
+		        boolean b = false;
+		        try
+		        {
+		            session = sessionfactory.openSession();
+		            transaction = session.beginTransaction();
+		            session.save(imageObj);
+		            transaction.commit();
+		            session.close();
+		            b = true;
+		        }catch(Exception e){
+		            e.printStackTrace();
+		        }
+		        return b;
+	}
+
+	@Override
+	public List<BIrdBeans> birdListByCatId(int categoryId) throws Exception {
+		// TODO Auto-generated method stub
+		List<BIrdBeans> getBirdImageListbyBirdId = new ArrayList<BIrdBeans>();
+        List temp=null;
+        try
+        {
+            session = sessionfactory.openSession();
+            transaction = session.beginTransaction();
+            String sql = "SELECT BirdName,BirdImage,CatId FROM tbl_image WHERE CatdId = "+categoryId;
+            Query query = session.createSQLQuery(sql);
+            temp=query.list();
+            if(temp != null && temp.size()!=0){
+            	for(Object obj:temp){
+            		Object[] img = (Object[]) obj;
+            		BIrdBeans bean=new BIrdBeans();
+            		bean.setBirdName((String) img[0]);
+            		bean.setBrdImage((String) img[1]);
+            		bean.setCatId((int) img[2]);
+            		getBirdImageListbyBirdId.add(bean);
+            	}
+            }
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+        }finally{
+        	if(session!=null){
+        		session.close();
+        	}
+        }
+        return getBirdImageListbyBirdId;
+	}
+
+	@Override
+	public List<BIrd> searchByName(String birdName) throws Exception {
+		// TODO Auto-generated method stub
+		List<BIrd> list=new ArrayList<BIrd>();
+		try{
+		session=sessionfactory.openSession();
+		transaction = session.beginTransaction();
+		String sql="SELECT * FROM tbl_bird WHERE BirdName LIKE '%"+birdName+"%'";
+		SQLQuery query=session.createSQLQuery(sql);
+		query.addEntity(BIrd.class);
+		list=query.list();
+		System.out.println(list.size());
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return list;
+	}
 }

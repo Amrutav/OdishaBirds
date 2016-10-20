@@ -4,6 +4,7 @@ public class ImageBean {
 	
 	private String imageName;
 	private String imagePath;
+	private int birdId;
 	public String getImageName() {
 		return imageName;
 	}
@@ -16,4 +17,11 @@ public class ImageBean {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	public int getBirdId() {
+		return birdId;
+	}
+	public void setBirdId(int birdId) {
+		this.birdId = birdId;
+	}
+	
 }

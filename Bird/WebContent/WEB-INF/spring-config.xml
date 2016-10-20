@@ -17,8 +17,8 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/bird" />
 		<property name="username" value="root"/>
- 		<property name="password" value="Kalki@007"/>
-<!-- 		<property name="password" value="root"/> -->
+<!--  		<property name="password" value="Kalki@007"/> -->
+		<property name="password" value="root"/>
 		
 	</bean>
 
@@ -28,8 +28,9 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>bird.entity.Category</value>
-				<value>bird.entity.Bird</value>
-				 <value>bird.entity.Image</value>
+				<value>bird.entity.BIrd</value>
+				<value>bird.entity.Image</value>
+				<value>bird.entity.BirdDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
