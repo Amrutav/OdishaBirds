@@ -172,39 +172,41 @@ public class BirdCont
 		return list;
 	}
     
-    private String saveImage(String filename, MultipartFile image){
-        String imgSrc = null;
-        try{
-        String rootPath = System.getProperty("catalina.home");
-        logger.debug(rootPath);
-        logger.info(rootPath);
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "Birds" + File.separator + "Images");
-        if(!dir.exists())
-        {
-            dir.mkdirs();
-        }
-        File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
-        FileUtils.writeByteArrayToFile(file, image.getBytes());
-        logger.debug("Go to the location:  "
-				+ file.toString()
-				+ " on your computer and verify that the image has been stored.");
-        imgSrc = "Birds" + File.separator + "Images" + File.separator + filename;
-        return imgSrc;
-        }catch(Exception e){
-        e.printStackTrace();
-        logger.error("Failed!", e);
-        }
-        return imgSrc;
-    }
+    private String saveImage(String filename, MultipartFile image)throws RuntimeException, IOException {
+
+		//save image starts
+		String imgSrc=null;
+		try {
+			
+			String rootPath = System.getProperty("catalina.home");
+			logger.debug(rootPath);
+			logger.info(rootPath);
+		    File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdImages");
+		    if (!dir.exists())
+		     dir.mkdirs();
+			File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
+			FileUtils.writeByteArrayToFile(file, image.getBytes());
+			logger.debug("Go to the location:  "
+					+ file.toString()
+					+ " on your computer and verify that the image has been stored.");
+			imgSrc= "BirdImages" + File.separator + filename;
+			return imgSrc;
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("Failed!", e);
+		}
+		return imgSrc;
+		//save image ends
+	}
     
-    private String saveSound(String filename, MultipartFile sound){
+    private String saveSound(String filename, MultipartFile sound)throws RuntimeException, IOException{
     	
         String soundSrc = null;
         try{
         String rootPath = System.getProperty("catalina.home");
         logger.debug(rootPath);
         logger.info(rootPath);
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "Birds" + File.separator + "Sounds");
+        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdSounds");
         if(!dir.exists())
         {
             dir.mkdirs();
@@ -214,7 +216,7 @@ public class BirdCont
         logger.debug("Go to the location:  "
 				+ file.toString()
 				+ " on your computer and verify that the sound has been stored.");
-        soundSrc = "Birds" + File.separator + "Sounds" + File.separator + filename;
+        soundSrc = "BirdSounds" + File.separator + filename;
         return soundSrc;
         }catch(Exception e){
         	e.printStackTrace();

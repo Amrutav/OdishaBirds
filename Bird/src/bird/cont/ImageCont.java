@@ -80,29 +80,31 @@ public class ImageCont{
         return birdImageListByBirdId;
     }
 
-    private String saveImage(String filename, MultipartFile image){
-        String imgSrc = null;
-        try{
-        String rootPath = System.getProperty("catalina.home");
-        logger.debug(rootPath);
-        logger.info(rootPath);
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "Birds" + File.separator + "Images");
-        if(!dir.exists())
-        {
-            dir.mkdirs();
-        }
-        File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
-        FileUtils.writeByteArrayToFile(file, image.getBytes());
-        logger.debug("Go to the location:  "
-				+ file.toString()
-				+ " on your computer and verify that the image has been stored.");
-        imgSrc = "Birds" + File.separator + "Images" + File.separator + filename;
-        return imgSrc;
-        }catch(Exception e){
-        e.printStackTrace();
-        logger.error("Failed!", e);
-        }
-        return imgSrc;
-    }
+    private String saveImage(String filename, MultipartFile image)throws RuntimeException, IOException {
+
+		//save image starts
+		String imgSrc=null;
+		try {
+			
+			String rootPath = System.getProperty("catalina.home");
+			logger.debug(rootPath);
+			logger.info(rootPath);
+		    File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdImages");
+		    if (!dir.exists())
+		     dir.mkdirs();
+			File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
+			FileUtils.writeByteArrayToFile(file, image.getBytes());
+			logger.debug("Go to the location:  "
+					+ file.toString()
+					+ " on your computer and verify that the image has been stored.");
+			imgSrc= "BirdImages" + File.separator + filename;
+			return imgSrc;
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("Failed!", e);
+		}
+		return imgSrc;
+		//save image ends
+	}
 
 }
