@@ -9,4 +9,6 @@ public interface CategoryService
     public boolean addCategory(Category category)throws Exception;
 
     public List<Category> getCategoryList()throws Exception;
+
+	public Category validateCategory(String catName) throws Exception;
 }

@@ -17,8 +17,8 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/bird" />
 		<property name="username" value="root"/>
- 		<property name="password" value="Kalki@007"/>
-<!-- 		<property name="password" value="root"/> -->
+<!--  		<property name="password" value="Kalki@007"/> -->
+		<property name="password" value="root"/>
 		
 	</bean>
 
@@ -67,6 +67,7 @@
 	</bean>
 
     <mvc:resources mapping="/WEB-INF/**" location="/WEB-INF/" /> 
+    <mvc:resources mapping="/js/**" location="/js/" />
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 

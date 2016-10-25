@@ -52,7 +52,7 @@ public class BirdCont
         System.out.println("controller body");
         try
         {
-            if(sound != null)
+            if(sound != null && sound.getSize() != 0)
             {
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -224,5 +224,22 @@ public class BirdCont
         }
         return soundSrc;
     }
-
+    
+    @RequestMapping(value = "/validateBird", method = RequestMethod.GET)
+	public @ResponseBody BIrdJson validateBirdName( @RequestParam(value = "birdName") String birdName) {
+    	BIrdJson birdJsonResponse=new BIrdJson();
+	    try {
+	        BIrd category = birdServices.validateBirdName(birdName);
+	        if(category!=null){
+	        	birdJsonResponse.setStatus("EXIST");
+	        }else{
+	        	birdJsonResponse.setStatus("NOT EXIST");
+	        }
+	    	return birdJsonResponse;
+	       } catch (Exception e) {
+	    	logger.error("Exception occurs in", e);
+	    	birdJsonResponse.setStatus(e.toString());
+	    }
+	   	return birdJsonResponse;
+	}
 }

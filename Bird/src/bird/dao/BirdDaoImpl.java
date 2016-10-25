@@ -1,13 +1,18 @@
 package bird.dao;
 
 import bird.entity.BirdDetail;
+import bird.entity.Category;
+import bird.service.BirdServiceImpl;
 import bird.entity.BIrd;
 import bird.entity.BIrdBeans;
 import bird.entity.BirdBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BirdDaoImpl implements BirdDao{
@@ -16,7 +21,8 @@ public class BirdDaoImpl implements BirdDao{
 	private SessionFactory sessionfactory;
     Session session;
     Transaction transaction;
-
+    static final Logger logger = Logger.getLogger(BirdServiceImpl.class);
+    
     @Override
     public boolean addBird(BirdDetail bird)throws Exception{
         boolean b = false;
@@ -150,5 +156,30 @@ public class BirdDaoImpl implements BirdDao{
 			session.close();
 		}
 		return list;
+	}
+
+	@Override
+	public BIrd validateBirdName(String birdName) throws Exception, HibernateException {
+		// TODO Auto-generated method stub
+		BIrd bird=new BIrd();
+		try {
+			session = sessionfactory.openSession();
+			Criteria criteria = session.createCriteria(bird.getClass());
+			criteria.add(Restrictions.eq("birdName", birdName));
+			bird = (BIrd) criteria.uniqueResult();
+			return bird;
+		} catch (HibernateException e) {
+			logger.error("Exception occurs in ", e);
+		}catch(Exception ex){
+			logger.error("Exception occurs in ", ex);
+		}finally{
+			try {
+				session.close();
+			} catch (HibernateException e) {
+				logger.error("Exception occurs in ", e);
+			}
+		}
+		return bird;
+		
 	}
 }

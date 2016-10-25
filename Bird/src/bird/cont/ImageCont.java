@@ -34,7 +34,7 @@ public class ImageCont{
         Image imageObj = null;
         String imgFile = null;
         String fileName = requst.getParameter("imageName");
-        int birdId = Integer.parseInt(requst.getParameter("birdId"));
+        int birdId = Integer.parseInt(requst.getParameter("bdId"));
         BIrd bird=new BIrd();
         bird.setBirdId(birdId);
         String hostname = "http://85.25.196.222:8080/";

@@ -3,6 +3,7 @@ package bird.service;
 import bird.dao.BirdDao;
 
 import bird.entity.BirdDetail;
+import bird.entity.Category;
 import bird.entity.BIrd;
 import bird.entity.BIrdBeans;
 import bird.entity.BirdBean;
@@ -42,5 +43,11 @@ public class BirdServiceImpl implements BirdService{
 	public List<BIrd> searchByName(String birdName) throws Exception {
 		// TODO Auto-generated method stub
 		return birdDao.searchByName(birdName);
+	}
+
+	@Override
+	public BIrd validateBirdName(String birdName) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.validateBirdName(birdName);
 	}
 }

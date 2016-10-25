@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -82,5 +83,23 @@ public class CatCont
         }
         return categoryList;
     }
+    
+    @RequestMapping(value = "/validateCat", method = RequestMethod.GET)
+	public @ResponseBody CategoryJsonResponse validateCategory( @RequestParam(value = "categoryName") String catName) {
+    	CategoryJsonResponse catJsonResponse=new CategoryJsonResponse();
+	    try {
+	        Category category = categoryServices.validateCategory(catName);
+	        if(category!=null){
+	        	catJsonResponse.setStatus("EXIST");
+	        }else{
+	        	catJsonResponse.setStatus("NOT EXIST");
+	        }
+	    	return catJsonResponse;
+	       } catch (Exception e) {
+	    	logger.error("Exception occurs in", e);
+	    	catJsonResponse.setStatus(e.toString());
+	    }
+	   	return catJsonResponse;
+	}
 
 }
