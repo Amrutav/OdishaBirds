@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	alert("Welcome");
 	
 	
 	//$("#catName").blur(function()
@@ -36,7 +35,8 @@ $(document).ready(function(){
 								
 								console.log(result); 
 								if(result.status=="SUCCESS"){
-									alert("done");
+									$("#catName").val('');
+									alert("Category Insertd Succssfully");
 									}else{	
 										alert("error");
 									}

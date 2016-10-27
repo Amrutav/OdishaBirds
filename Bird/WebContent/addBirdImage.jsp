@@ -17,7 +17,7 @@ Choose Bird:<select id="bdId" name="bdId">
 <option id="option"></option>
 </select>
 <br><br>
-Enter Image Name:<input type="text" id="imageName" name="imageName" maxlength="45"><br><br>
+Enter Image Name:<input type="text" id="imageName" name="imageName" maxlength="45" onkeypress="return onlyAlphabets(event,this);"><br><br>
 File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
@@ -63,6 +63,25 @@ File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange=
 		  return true;
 	  }
   }
+  
+  function onlyAlphabets(e, t) {
+	    try {
+	        if (window.event) {
+	            var charCode = window.event.keyCode;
+	        }
+	        else if (e) {
+	            var charCode = e.which;
+	        }
+	        else { return true; }
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+	            return true;
+	        else
+	            return false;
+	    }
+	    catch (err) {
+	        alert(err.Description);
+	    }
+	}
  </script>
  <script type="text/javascript" src="js/image.js"></script>
 </body>

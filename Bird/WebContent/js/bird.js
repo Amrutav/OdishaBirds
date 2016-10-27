@@ -1,6 +1,4 @@
 $(document).ready(function(){
-	alert("Welcome");
-	
 	
 	$.ajax({
 	    url: 'category/categoryList',

@@ -9,7 +9,7 @@
 </head>
 <body>
 <center>Add Bird Detail</center>
-<form action="bird/addBirdDetail" method="post" enctype="multipart/form-data">
+<form action="bird/addBirdDetail" method="post" enctype="multipart/form-data" name="form1">
 Choose Category:<select id="categoryId" name="categoryId" >
 <option id="option"></option>
 </select>
@@ -17,16 +17,16 @@ Choose Bird:<select id="bdId" name="bdId">
 <option id="option"></option>
 </select>
 <br><br>
-Color:<input type="text" id="birdColor" name="birdColor" maxlength="50"><br><br>
-Description:<input type="text" id="birdDetails" name="birdDetails" maxlength="1000"><br><br>
-Food:<input type="text" id="birdFood" name="birdFood" maxlength="100"><br><br>
-Population:<input type="text" id="birdPopulation" name="birdPopulation" maxlength="50"><br><br>
-Alternative Name:<input type="text" id="birdAltName" name="birdAltName" maxlength="100"><br><br>
-Scientific Name:<input type="text" id="birdSciName" name="birdSciName" maxlength="100"><br><br>
-Resident:<input type="text" id="birdResident" name="birdResident" maxlength="100"><br><br>
-Visibility:<input type="text" id="birdVisibility" name="birdVisibility" maxlength="50"><br><br>
-Migratory Status:<input type="text" id="birdMigrtStatus" name="birdMigrtStatus" maxlength="50"><br><br>
-Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod" maxlength="10"><br><br>
+Color:<input type="text" id="birdColor" name="birdColor" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Description:<input type="text" id="birdDetails" name="birdDetails" maxlength="1000" ><br><br>
+Food:<input type="text" id="birdFood" name="birdFood" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Population:<input type="text" id="birdPopulation" name="birdPopulation" maxlength="50" onkeypress="return alphanumeric(documnt.form1.birdPopulation);"><br><br>
+Alternative Name:<input type="text" id="birdAltName" name="birdAltName" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Scientific Name:<input type="text" id="birdSciName" name="birdSciName" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Resident:<input type="text" id="birdResident" name="birdResident" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Visibility:<input type="text" id="birdVisibility" name="birdVisibility" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Migratory Status:<input type="text" id="birdMigrtStatus" name="birdMigrtStatus" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>
+Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod" maxlength="10" onkeypress="return alphanumeric(documnt.form1.birdNestPeriod);"><br><br>
 Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
@@ -66,7 +66,7 @@ Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onc
 		  document.getElementById("bdId").focus();
 		  return false;
 	  }
-	  if(birdcolor==""){
+	  if(birdcolor==" "){
 		  alert("Please enter birds color");
 		  document.getElementById("birdColor").focus();
 	  return false;
@@ -128,6 +128,40 @@ Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onc
 	 
 	  
   }
+  
+  function onlyAlphabets(e, t) {
+	    try {
+	        if (window.event) {
+	            var charCode = window.event.keyCode;
+	        }
+	        else if (e) {
+	            var charCode = e.which;
+	        }
+	        else { return true; }
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) ||(charCode==32))
+	            return true;
+	        else
+	            return false;
+	    }
+	    catch (err) {
+	        alert(err.Description);
+	    }
+	}
+  
+  function alphanumeric(inputtxt)  
+  {  
+   var letterNumber = /^[0-9a-zA-Z]/;  
+   if((inputtxt.value.match(letterNumber)))   
+    {  
+     return true;  
+    }  
+  else  
+    {   
+     alert("message");   
+     return false;   
+    }  
+    }
+  
  </script>
   <script type="text/javascript" src="js/birddet.js"></script>
 </body>

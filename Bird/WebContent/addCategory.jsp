@@ -9,19 +9,38 @@
 </head>
 <body>
 <center>Add Category</center>
-Category Name:<input type="text" id="catName" name="catName" maxlength="100"><br><br>
+Category Name:<input type="text" id="catName" name="catName" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
 <input type="submit" value="Submit" id="cat" onclick="return validation()">
 
 <script type="text/javascript">
 function validation(){
 	  var catname=document.getElementById("catName").value;
 	 
-	  if(catname==""){//cat kana drop down... no..txt run ... done mane data insert...next time b hauni..but duplicat chck hauchi...dekha
+	  if(catname==""){
 		  document.getElementById("catName").focus();
 	  return false;
 	  }else{
 		  return true;
 	  }
+}
+
+function onlyAlphabets(e, t) {
+    try {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) ||(charCode==32))
+            return true;
+        else
+            return false;
+    }
+    catch (err) {
+        alert(err.Description);
+    }
 }
 
 </script>

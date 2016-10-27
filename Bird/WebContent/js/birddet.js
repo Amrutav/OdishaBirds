@@ -66,11 +66,10 @@ $(document).ready(function(){
 		    success: function(result) {
 		        console.log(result); 
 		if(result.status=="NOT EXIST"){
-			//alert("ok");tike mouse tdia.. ok run
 		    }else if (result.status=="EXIST"){	
-		    	//$("bdId").empty();
+		    	$('#bdId').empty();
 		    	alert("Details for the bird already exists. Insert for anathor.");
-		    	return;
+		    	return true;
 		}
 		}
 		});
