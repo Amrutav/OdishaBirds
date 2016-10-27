@@ -242,4 +242,22 @@ public class BirdCont
 	    }
 	   	return birdJsonResponse;
 	}
+    
+    @RequestMapping(value = "/validateBirdDetails", method = RequestMethod.GET)
+	public @ResponseBody BirdJsonResponse validateBirdDetails( @RequestParam(value = "bdId") String bdId) {
+    	BirdJsonResponse birdJsonResponse=new BirdJsonResponse();
+	    try {
+	    	BirdDetail details = birdServices.validateBirdDetails(bdId);
+	        if(details.getBird().getBirdId()>0){
+	        	birdJsonResponse.setStatus("EXIST");
+	        }else{
+	        	birdJsonResponse.setStatus("NOT EXIST");
+	        }
+	    	return birdJsonResponse;
+	       } catch (Exception e) {
+	    	logger.error("Exception occurs in", e);
+	    	birdJsonResponse.setStatus(e.toString());
+	    }
+	   	return birdJsonResponse;
+	}
 }

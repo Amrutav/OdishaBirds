@@ -50,4 +50,10 @@ public class BirdServiceImpl implements BirdService{
 		// TODO Auto-generated method stub
 		return birdDao.validateBirdName(birdName);
 	}
+
+	@Override
+	public BirdDetail validateBirdDetails(String bdId) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.validateBirdDetails(bdId);
+	}
 }

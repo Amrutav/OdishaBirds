@@ -9,15 +9,14 @@
 </head>
 <body>
 <center>Add Category</center>
-Category Name:<input type="text" id="catName" name="catName"><br><br>
+Category Name:<input type="text" id="catName" name="catName" maxlength="100"><br><br>
 <input type="submit" value="Submit" id="cat" onclick="return validation()">
 
 <script type="text/javascript">
 function validation(){
 	  var catname=document.getElementById("catName").value;
 	 
-	  if(catname==""){
-		  alert("Please enter the Category");
+	  if(catname==""){//cat kana drop down... no..txt run ... done mane data insert...next time b hauni..but duplicat chck hauchi...dekha
 		  document.getElementById("catName").focus();
 	  return false;
 	  }else{

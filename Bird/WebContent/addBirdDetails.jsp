@@ -10,24 +10,24 @@
 <body>
 <center>Add Bird Detail</center>
 <form action="bird/addBirdDetail" method="post" enctype="multipart/form-data">
-Choose Category:<select id="categoryId" name="categoryId">
+Choose Category:<select id="categoryId" name="categoryId" >
 <option id="option"></option>
 </select>
 Choose Bird:<select id="bdId" name="bdId">
 <option id="option"></option>
 </select>
 <br><br>
-Color:<input type="text" id="birdColor" name="birdColor"><br><br>
-Description:<input type="text" id="birdDetails" name="birdDetails"><br><br>
-Food:<input type="text" id="birdFood" name="birdFood"><br><br>
-Population:<input type="text" id="birdPopulation" name="birdPopulation"><br><br>
-Alternative Name:<input type="text" id="birdAltName" name="birdAltName"><br><br>
-Scientific Name:<input type="text" id="birdSciName" name="birdSciName"><br><br>
-Resident:<input type="text" id="birdResident" name="birdResident"><br><br>
-Visibility:<input type="text" id="birdVisibility" name="birdVisibility"><br><br>
-Migratory Status:<input type="text" id="birdMigrtStatus" name="birdMigrtStatus"><br><br>
-Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod"><br><br>
-Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onchange="checkfile(this);"><br><br>
+Color:<input type="text" id="birdColor" name="birdColor" maxlength="50"><br><br>
+Description:<input type="text" id="birdDetails" name="birdDetails" maxlength="1000"><br><br>
+Food:<input type="text" id="birdFood" name="birdFood" maxlength="100"><br><br>
+Population:<input type="text" id="birdPopulation" name="birdPopulation" maxlength="50"><br><br>
+Alternative Name:<input type="text" id="birdAltName" name="birdAltName" maxlength="100"><br><br>
+Scientific Name:<input type="text" id="birdSciName" name="birdSciName" maxlength="100"><br><br>
+Resident:<input type="text" id="birdResident" name="birdResident" maxlength="100"><br><br>
+Visibility:<input type="text" id="birdVisibility" name="birdVisibility" maxlength="50"><br><br>
+Migratory Status:<input type="text" id="birdMigrtStatus" name="birdMigrtStatus" maxlength="50"><br><br>
+Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod" maxlength="10"><br><br>
+Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
 <script type="text/javascript" language="javascript">
@@ -124,6 +124,9 @@ Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onc
 	  }else{
 		  return true;
 	  }
+	  
+	 
+	  
   }
  </script>
   <script type="text/javascript" src="js/birddet.js"></script>

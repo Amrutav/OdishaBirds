@@ -1,6 +1,10 @@
 $(document).ready(function(){
 	alert("Welcome");
 	
+	$('#categoryId').change(function() {
+		  alert("change"); 
+		  $('#bdId').empty();
+		});
 	
 	$.ajax({
 	    url: 'category/categoryList',

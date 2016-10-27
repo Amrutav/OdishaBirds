@@ -17,18 +17,20 @@ Choose Bird:<select id="bdId" name="bdId">
 <option id="option"></option>
 </select>
 <br><br>
-Enter Image Name:<input type="text" id="imageName" name="imageName"><br><br>
-File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange="checkfile(this);"><br><br>
+Enter Image Name:<input type="text" id="imageName" name="imageName" maxlength="45"><br><br>
+File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
 <script type="text/javascript" language="javascript">
   function checkfile(sender) {
-   var validExts = new Array(".jpg", ".jpg",".png");
+   var validExts = new Array(".jpeg", ".jpg",".png",".JPG",".JPEG",".PNG");
    var fileExt = sender.value;
+   var birdImage=document.getElementById("birdImage").value;
    fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
    if (validExts.indexOf(fileExt) < 0) {
-    alert("Invalid file selected, valid files are of "
-      + validExts.toString() + " types.");
+	   $('#birdImage').val('');
+    alert("Invalid file selected, valid files are of "+ validExts.toString() + " types.");
+    document.getElementById("birdImage").focus();
     return false;
    } else
     return true;

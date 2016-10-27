@@ -182,4 +182,31 @@ public class BirdDaoImpl implements BirdDao{
 		return bird;
 		
 	}
+
+	@Override
+	public BirdDetail validateBirdDetails(String bdId) throws Exception {
+		// TODO Auto-generated method stub
+		BirdDetail birddet=new BirdDetail();
+		try {
+			session=sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			String sql="select * from tbl_bird bd, tbl_bird_detail bds where bd.BirdId = bds.BdId and bd.BirdId = "+bdId;
+			SQLQuery query=session.createSQLQuery(sql);
+			query.addEntity(BirdDetail.class);
+			List<BirdDetail> list = query.list();
+			birddet=list.get(0);
+			return birddet;
+		} catch (HibernateException e) {
+			logger.error("Exception occurs in ", e);
+		}catch(Exception ex){
+			logger.error("Exception occurs in ", ex);
+		}finally{
+			try {
+				session.close();
+			} catch (HibernateException e) {
+				logger.error("Exception occurs in ", e);
+			}
+		}
+		return birddet;
+	}
 }

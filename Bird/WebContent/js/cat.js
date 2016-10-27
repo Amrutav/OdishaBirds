@@ -9,6 +9,10 @@ $(document).ready(function(){
 		};
 		console.log(dataObject);
 		var categoryName=$('#catName').val();
+		if(categoryName==""){
+			alert("Please enter category");
+			return;
+		}else{
 		$.ajax({
 		    url: 'category/validateCat?categoryName='+categoryName,
 		    type: 'get',
@@ -43,6 +47,7 @@ $(document).ready(function(){
 		}
 		}
 		});
+		}
 	});
 	
 	/*$( "#cat" ).click(function( event ) {

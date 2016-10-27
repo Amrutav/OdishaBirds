@@ -22,4 +22,6 @@ public interface BirdDao
 	public abstract List<BIrd> searchByName(String birdName) throws Exception;
 
 	public abstract BIrd validateBirdName(String birdName)throws Exception;
+
+	public abstract BirdDetail validateBirdDetails(String bdId) throws Exception;
 }
