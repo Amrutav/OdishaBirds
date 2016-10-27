@@ -1,9 +1,7 @@
 $(document).ready(function(){
-	alert("Welcome");
 	
 		$('#categoryId').change(function() {
 			$('#bdId').empty();
-		  alert("change"); 
 		  
 		});
 	
@@ -24,12 +22,12 @@ $(document).ready(function(){
 	
 	/*$('#categoryId').change(function() {
 		dataObject = {
-				'categoryId':$('#categoryId').val() se second DD ra id kana
+				'categoryId':$('#categoryId').val() 
 	  
 	};*/
 	
 	$("#categoryId").blur(function(){
-		$('#bdId').empty();//run
+		$('#bdId').empty();
 		dataObject = {
 			'categoryId':$('#categoryId').val()
   };

@@ -34,6 +34,7 @@ $(document).ready(function(){
 		if(result.status=="NOT EXIST"){
 			//alert("ok");
 		    }else if (result.status=="EXIST"){	
+		    	$("#birdName").val('');
 		    	alert("This bird already exists. Insert new one.");
 		}
 		}

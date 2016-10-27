@@ -1,8 +1,7 @@
 $(document).ready(function(){
-	alert("Welcome");
-	
+
 	$('#categoryId').change(function() {
-		  alert("change"); 
+	
 		  $('#bdId').empty();
 		});
 	
@@ -22,7 +21,7 @@ $(document).ready(function(){
 	});	
 	
 	$("#categoryId").blur(function(){
-		alert("inside blur");
+
 		dataObject = {
 			'categoryId':$('#categoryId').val()
   };
