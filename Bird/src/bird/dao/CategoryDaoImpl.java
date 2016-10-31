@@ -74,5 +74,23 @@ public class CategoryDaoImpl implements CategoryDao{
 		}
 		return category;
 	}
+
+	@Override
+	public boolean deleteCategory(Category category) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+		try {
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			session.delete(category);
+			transaction.commit();
+			session.close();
+			b = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
 	
 }

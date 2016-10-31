@@ -7,11 +7,14 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -259,5 +262,24 @@ public class BirdCont
 	    	birdJsonResponse.setStatus(e.toString());
 	    }
 	   	return birdJsonResponse;
+	}
+    
+    @RequestMapping(value = "/deleteBird", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody BIrdJson deleteImage(@Valid @RequestBody BIrd bird){
+    	BIrdJson birdJsonResponse = new BIrdJson();
+		System.out.println(bird.getBirdId());
+		try{
+			flag = birdServices.deleteBird(bird);
+			if(flag){
+				birdJsonResponse.setStatus("SUCCESS");
+			}else{
+				birdJsonResponse.setStatus("FAILED");
+			}
+			return birdJsonResponse;
+		}catch (Exception e) {
+			birdJsonResponse.setStatus(e.toString());
+			logger.error("Exception Occurs in : ", e);
+		}
+		return birdJsonResponse;
 	}
 }

@@ -24,4 +24,6 @@ public interface BirdDao
 	public abstract BIrd validateBirdName(String birdName)throws Exception;
 
 	public abstract BirdDetail validateBirdDetails(String bdId) throws Exception;
+
+	public abstract boolean deleteBird(BIrd bird)throws Exception;
 }

@@ -56,4 +56,10 @@ public class BirdServiceImpl implements BirdService{
 		// TODO Auto-generated method stub
 		return birdDao.validateBirdDetails(bdId);
 	}
+
+	@Override
+	public boolean deleteBird(BIrd bird) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.deleteBird(bird);
+	}
 }

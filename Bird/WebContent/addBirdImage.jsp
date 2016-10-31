@@ -11,16 +11,25 @@
 <center>Add Bird Image</center>
 <form action="image/addBirdImage" method="post" enctype="multipart/form-data">
 Choose Category:<select id="categoryId" name="categoryId">
-<option id="option"></option>
+
 </select>
 Choose Bird:<select id="bdId" name="bdId">
-<option id="option"></option>
+
+ <option  value="0">--Select--</option> 
 </select>
 <br><br>
 Enter Image Name:<input type="text" id="imageName" name="imageName" maxlength="45" onkeypress="return onlyAlphabets(event,this);"><br><br>
 File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
+<br><br>
+<table bordercolor="green" height="10px" width=50% >
+<tr><th>Image Name</th><th>Image</th><th>Delete</th></tr>
+</table>
+<table bordercolor="green" height="10px" width=50% id="image">
+
+</table>
+
 <script type="text/javascript" language="javascript">
   function checkfile(sender) {
    var validExts = new Array(".jpeg", ".jpg",".png",".JPG",".JPEG",".PNG");
@@ -73,7 +82,7 @@ File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange=
 	            var charCode = e.which;
 	        }
 	        else { return true; }
-	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)||(charCode==32))
 	            return true;
 	        else
 	            return false;

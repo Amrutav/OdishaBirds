@@ -1,5 +1,24 @@
 $(document).ready(function(){
 	
+		
+	$.ajax({
+	    url: 'category/categoryList',
+	    type: 'get',
+		contentType: "application/json; charset=utf-8",
+		dataType:'json',
+		data:"",
+	    success: function(result) {
+	        console.log(result);
+	        var table=$("#category");
+		    $.each(result, function(i, item){
+		    	var CatID=result[i].categoryId;
+		    	table+='<tr ><td>'+result[i].categoryName+ '</td><td>' +'<input type="button" value="Delete" onclick="deleteImage('+CatID+');">'+'</td></tr>';
+		    });  
+		    $('#category').append(table);  
+	}
+	});
+	
+	
 	
 	//$("#catName").blur(function()
 			$( "#cat" ).click(function( event ){
@@ -50,28 +69,25 @@ $(document).ready(function(){
 		}
 	});
 	
-	/*$( "#cat" ).click(function( event ) {
-		dataObject = {
-	  'categoryName':$('#catName').val()
-		}
-		console.log(dataObject);
-		$.ajax({
-			url: 'category/addCategory',
-			type: 'post',
-			contentType: "application/json; charset=utf-8",
-			dataType:'json',
-			data:JSON.stringify(dataObject),
-			success: function(result) {
-				
-				console.log(result); 
-				if(result.status=="SUCCESS"){
-					alert("done");
-					}else{	
-						alert("error");
-					}
-			}
-		});
-	});*/
-	
 	
 });
+
+
+function deleteImage(id){
+	
+	dataObject={
+			'categoryId':id
+		};
+	$.ajax({
+	    url: 'category/deleteCategory',
+	    type: 'delete',
+		contentType: "application/json; charset=utf-8",
+		dataType:'json',
+		data:JSON.stringify(dataObject),
+	    success: function(result) {
+	        console.log(result);
+	      
+	}
+	});
+	
+}

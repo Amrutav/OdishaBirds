@@ -29,4 +29,10 @@ public class CategoryServiceImpl implements CategoryService{
 		// TODO Auto-generated method stub
 		return categoryDao.validatecategory(catName);
 	}
+
+	@Override
+	public boolean deleteCategory(Category category) throws Exception {
+		// TODO Auto-generated method stub
+		return categoryDao.deleteCategory(category);
+	}
 }

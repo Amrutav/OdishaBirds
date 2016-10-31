@@ -2,6 +2,13 @@ package bird.entity;
 
 public class ImageBean {
 	
+	private int imageId;
+	public int getImageId() {
+		return imageId;
+	}
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
 	private String imageName;
 	private String imagePath;
 	private int birdId;

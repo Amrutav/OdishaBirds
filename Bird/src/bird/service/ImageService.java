@@ -11,4 +11,6 @@ public interface ImageService
     public boolean addBirdImage(Image image)throws Exception;
 
     public List<ImageBean> birdImageListByBirdId(int birdId)throws Exception;
+
+	public boolean deleteImage(Image image) throws Exception;
 }

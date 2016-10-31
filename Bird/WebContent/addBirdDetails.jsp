@@ -11,10 +11,10 @@
 <center>Add Bird Detail</center>
 <form action="bird/addBirdDetail" method="post" enctype="multipart/form-data" name="form1">
 Choose Category:<select id="categoryId" name="categoryId" >
-<option id="option"></option>
+
 </select>
 Choose Bird:<select id="bdId" name="bdId">
-<option id="option"></option>
+<option  value="0">--Select--</option>
 </select>
 <br><br>
 Color:<input type="text" id="birdColor" name="birdColor" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>

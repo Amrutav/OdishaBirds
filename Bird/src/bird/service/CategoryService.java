@@ -11,4 +11,6 @@ public interface CategoryService
     public List<Category> getCategoryList()throws Exception;
 
 	public Category validateCategory(String catName) throws Exception;
+
+	public boolean deleteCategory(Category category)throws Exception;
 }

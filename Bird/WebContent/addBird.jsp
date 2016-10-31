@@ -11,13 +11,18 @@
 <center>Add Bird Image</center>
 <form action="bird/addBird" method="post" enctype="multipart/form-data">
 Choose Category:<select id="categoryId" name="categoryId">
-<option id="option"></option>
 </select>
 <br><br>
 Enter Bird Name:<input type="text" id="birdName" name="birdName" maxlength="55" onkeypress="return onlyAlphabets(event,this);"><br><br>
 File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange="checkfile(this);"><br>  Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
+
+<table bordercolor="green" height="10px" width=50% >
+<tr><th>Bird Name</th><th>Image</th><th>Delete</th></tr>
+</table>
+<table bordercolor="green" height="10px" width=50% id="bird">
+</table>
 <script type="text/javascript" language="javascript">
 function checkfile(sender) {
 	   var validExts = new Array(".jpeg", ".jpg",".png",".JPG",".JPEG",".PNG");
@@ -66,7 +71,7 @@ function checkfile(sender) {
 	            var charCode = e.which;
 	        }
 	        else { return true; }
-	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)||(charCode==32))
 	            return true;
 	        else
 	            return false;

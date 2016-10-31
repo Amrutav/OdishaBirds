@@ -209,4 +209,22 @@ public class BirdDaoImpl implements BirdDao{
 		}
 		return birddet;
 	}
+
+	@Override
+	public boolean deleteBird(BIrd bird) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+		try {
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			session.delete(bird);
+			transaction.commit();
+			session.close();
+			b = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
 }

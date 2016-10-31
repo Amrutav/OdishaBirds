@@ -13,12 +13,20 @@ public class ImageServiceImpl implements ImageService{
 
     @Autowired
 	ImageDao imageDao;
-    
+   
+    @Override
     public boolean addBirdImage(Image imageObj)throws Exception{
         return imageDao.addBirdImage(imageObj);
     }
-
+    
+    @Override
     public List<ImageBean> birdImageListByBirdId(int birdId)throws Exception{
         return imageDao.birdImageListByBirdId(birdId);
     }
+
+	@Override
+	public boolean deleteImage(Image image) throws Exception {
+		// TODO Auto-generated method stub
+		return imageDao.deleteImage(image);
+	}
 }

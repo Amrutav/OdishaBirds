@@ -1,5 +1,7 @@
 package bird.cont;
 
+import bird.entity.BIrd;
+import bird.entity.BIrdJson;
 import bird.entity.Category;
 
 import bird.entity.CategoryJsonResponse;
@@ -11,6 +13,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -28,6 +31,7 @@ public class CatCont
     @Autowired
 	CategoryService categoryServices;
     private MessageSource messages;
+    private boolean flag;
     static final Logger logger = Logger.getLogger(Category.class);
 
     @RequestMapping(value="/addCategory")
@@ -101,5 +105,23 @@ public class CatCont
 	    }
 	   	return catJsonResponse;
 	}
-
+    
+    @RequestMapping(value = "/deleteCategory", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody CategoryJsonResponse deleteCategory(@Valid @RequestBody Category category){
+    	CategoryJsonResponse categoryJsonResponse = new CategoryJsonResponse();
+		System.out.println(category.getCategoryId());
+		try{
+			flag = categoryServices.deleteCategory(category);
+			if(flag){
+				categoryJsonResponse.setStatus("SUCCESS");
+			}else{
+				categoryJsonResponse.setStatus("FAILED");
+			}
+			return categoryJsonResponse;
+		}catch (Exception e) {
+			categoryJsonResponse.setStatus(e.toString());
+			logger.error("Exception Occurs in : ", e);
+		}
+		return categoryJsonResponse;
+	}
 }

@@ -8,10 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,5 +110,23 @@ public class ImageCont{
 		return imgSrc;
 		//save image ends
 	}
-
+    
+    @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ImageJsonResponse deleteImage(@Valid @RequestBody Image image){
+    	ImageJsonResponse imageJsonResponse = new ImageJsonResponse();
+		System.out.println(image.getImageId());
+		try{
+			flag = imageServices.deleteImage(image);
+			if(flag){
+				imageJsonResponse.setStatus("SUCCESS");
+			}else{
+				imageJsonResponse.setStatus("FAILED");
+			}
+			return imageJsonResponse;
+		}catch (Exception e) {
+			imageJsonResponse.setStatus(e.toString());
+			logger.error("Exception Occurs in : ", e);
+		}
+		return imageJsonResponse;
+	}
 }

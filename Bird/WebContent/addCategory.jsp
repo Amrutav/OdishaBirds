@@ -12,6 +12,12 @@
 Category Name:<input type="text" id="catName" name="catName" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
 <input type="submit" value="Submit" id="cat" onclick="return validation()">
 
+<table bordercolor="green" height="10px" width=50% >
+<tr><th>Category Name</th><th>Delete</th></tr>
+</table>
+<table bordercolor="green" height="10px" width=50% id="category">
+
+</table>
 <script type="text/javascript">
 function validation(){
 	  var catname=document.getElementById("catName").value;

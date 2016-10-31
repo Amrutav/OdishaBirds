@@ -40,7 +40,7 @@ public class ImageDaoImpl implements ImageDao{
         {
             session = sessionfactory.openSession();
             transaction = session.beginTransaction();
-            String sql = "SELECT ImageName,ImagePath,BirdId FROM tbl_image WHERE BirdId = "+birdId;
+            String sql = "SELECT ImageName,ImagePath,BirdId,ImageId FROM tbl_image WHERE BirdId = "+birdId;
             Query query = session.createSQLQuery(sql);
             temp=query.list();
             if(temp != null && temp.size()!=0){
@@ -50,6 +50,7 @@ public class ImageDaoImpl implements ImageDao{
             		bean.setImageName((String) img[0]);
             		bean.setImagePath((String) img[1]);
             		bean.setBirdId((int) img[2]);
+            		bean.setImageId((int) img[3]);
             		getBirdImageListbyBirdId.add(bean);
             	}
             }
@@ -63,4 +64,22 @@ public class ImageDaoImpl implements ImageDao{
         }
         return getBirdImageListbyBirdId;
     }
+
+	@Override
+	public boolean deleteImage(Image image) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+		try {
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			session.delete(image);
+			transaction.commit();
+			session.close();
+			b = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
 }
