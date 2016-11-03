@@ -26,7 +26,7 @@ Scientific Name:<input type="text" id="birdSciName" name="birdSciName" maxlength
 Resident:<input type="text" id="birdResident" name="birdResident" maxlength="100" onkeypress="return onlyAlphabets(event,this);"><br><br>
 Visibility:<input type="text" id="birdVisibility" name="birdVisibility" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>
 Migratory Status:<input type="text" id="birdMigrtStatus" name="birdMigrtStatus" maxlength="50" onkeypress="return onlyAlphabets(event,this);"><br><br>
-Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod" maxlength="10" onkeypress="return alphanumeric(documnt.form1.birdNestPeriod);"><br><br>
+Nesting Period:<input type="text" id="birdNestPeriod" name="birdNestPeriod" maxlength="50" onkeypress="return alphanumeric(documnt.form1.birdNestPeriod);"><br><br>
 Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onchange="checkfile(this);"><br> Max Upload size is 950 KB<br><br>
 <input type="submit" value="Submit" onclick="return validation()">
 </form>
@@ -138,7 +138,7 @@ Sound File:<input type="file" id="birdSound" value="Upload" name="birdSound" onc
 	            var charCode = e.which;
 	        }
 	        else { return true; }
-	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) ||(charCode==32))
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) ||(charCode==32)||(charCode==45)||(charCode==44))
 	            return true;
 	        else
 	            return false;

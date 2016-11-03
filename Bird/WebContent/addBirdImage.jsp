@@ -82,7 +82,7 @@ File:<input type="file" id="birdImage" value="Upload" name="birdImage" onchange=
 	            var charCode = e.which;
 	        }
 	        else { return true; }
-	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)||(charCode==32))
+	        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)||(charCode==32)||(charCode==45))
 	            return true;
 	        else
 	            return false;
