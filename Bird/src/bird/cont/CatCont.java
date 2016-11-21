@@ -1,12 +1,9 @@
 package bird.cont;
 
-import bird.entity.BIrd;
-import bird.entity.BIrdJson;
-import bird.entity.Category;
-
-import bird.entity.CategoryJsonResponse;
-import bird.service.CategoryService;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -22,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import bird.entity.Category;
+import bird.entity.CategoryJsonResponse;
+import bird.service.CategoryService;
 
 @Controller
 @RequestMapping("/category")

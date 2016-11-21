@@ -41,7 +41,7 @@ public class ImageCont{
         int birdId = Integer.parseInt(requst.getParameter("bdId"));
         BIrd bird=new BIrd();
         bird.setBirdId(birdId);
-        String hostname = "http://85.25.196.222:8080/";
+        String hostname = "http://85.25.196.222:8083/";
         String fullPath = null;
         System.out.println("controller body");
         try
@@ -57,6 +57,7 @@ public class ImageCont{
                 imageObj.setImagePath(fullPath);
                 imageObj.setImageName(fileName);
                 flag = imageServices.addBirdImage(imageObj);
+                System.out.println(flag);
                 if(flag){
                     imageJsonRespons.setStatus("SUCCSS");
                 } else{

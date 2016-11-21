@@ -50,7 +50,7 @@ public class BirdCont
         int bdId = Integer.parseInt(requst.getParameter("bdId"));
         BIrd birdObj=new BIrd();
         birdObj.setBirdId(bdId);
-        String hostname = "http://85.25.196.222:8080/";
+        String hostname = "http://85.25.196.222:8083/";
         String fullPath = null;
         System.out.println("controller body");
         try
@@ -120,7 +120,7 @@ public class BirdCont
         int catId = Integer.parseInt(requst.getParameter("categoryId"));
         Category category=new Category();
         category.setCategoryId(catId);
-        String hostname = "http://85.25.196.222:8080/";
+        String hostname = "http://85.25.196.222:8083/";
         String fullPath = null;
         System.out.println("controller body");
         try
