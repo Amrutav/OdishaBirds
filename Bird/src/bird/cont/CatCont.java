@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -36,7 +37,7 @@ public class CatCont
     static final Logger logger = Logger.getLogger(Category.class);
 
     @RequestMapping(value="/addCategory")
-    public @ResponseBody CategoryJsonResponse addNewBoard(@Valid @RequestBody Category category, BindingResult bindingResult)
+    public @ResponseBody CategoryJsonResponse addCategory(@Valid @RequestBody Category category, BindingResult bindingResult)
     {
         CategoryJsonResponse categoryJsonResponse;
         categoryJsonResponse = new CategoryJsonResponse();
@@ -125,4 +126,62 @@ public class CatCont
 		}
 		return categoryJsonResponse;
 	}
+    
+  //Category By Category Id
+	
+  	@RequestMapping(value = "/categoryListById", method = RequestMethod.GET)
+  	public @ResponseBody List<Category> getCategoryListById(@RequestParam(value = "categoryId") int categoryId){
+  		List<Category> categoryListById = new ArrayList<Category>();
+  		String name=null;
+  		try {
+  			System.out.println("HELLO");
+  			categoryListById = categoryServices.getCategoryListById(categoryId);
+  		} catch (Exception e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  		return categoryListById;
+  	}
+  	
+  	
+  	@RequestMapping(value="/updateCategory", method=RequestMethod.POST)
+    public @ResponseBody CategoryJsonResponse updateCategory(@Valid @RequestBody Category category, BindingResult bindingResult)
+    {
+  		CategoryJsonResponse categoryJsonResponse;
+        categoryJsonResponse = new CategoryJsonResponse();
+        System.out.println("Controller Body");
+        if(bindingResult.hasErrors()){
+        	Map<String, String> errors = new HashMap<String, String>();
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			for(FieldError fieldError : fieldErrors){
+				String[] resolveMessageCodes = bindingResult.resolveMessageCodes(fieldError.getCode());
+				String string = resolveMessageCodes[0];
+				logger.debug("resolveMessageCodes: "+string);
+				String message = messages.getMessage(string+"."+fieldError.getField(), new Object[]{fieldError.getRejectedValue()}, null);
+				logger.debug("Message"+message);
+				errors.put(fieldError.getField(), message);
+            }
+
+            categoryJsonResponse.setErrorsMap(errors);
+            categoryJsonResponse.setCategory(category);
+            categoryJsonResponse.setStatus("ERROR");
+            return categoryJsonResponse;
+        }else {
+        	try{
+        	boolean flag = categoryServices.addCategory(category);
+            if(flag){
+                categoryJsonResponse.setStatus("SUCCESS");
+            } else{
+                categoryJsonResponse.setStatus("FAILED");
+            }
+            return categoryJsonResponse;
+        	}
+		catch (Exception e) {
+			// TODO: handle exception
+			categoryJsonResponse.setStatus(e.toString());
+	        logger.error("Exception Occurs in : ", e);
+		}
+        return categoryJsonResponse;
+    }
+}
 }

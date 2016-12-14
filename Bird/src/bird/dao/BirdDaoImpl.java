@@ -1,7 +1,9 @@
 package bird.dao;
 
 import bird.entity.BirdDetail;
-import bird.entity.Category;
+
+
+
 import bird.service.BirdServiceImpl;
 import bird.entity.BIrd;
 import bird.entity.BIrdBeans;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -226,5 +229,61 @@ public class BirdDaoImpl implements BirdDao{
 			e.printStackTrace();
 		}
 		return b;
+	}
+
+	@Override
+	public List<BIrdBeans> birdList() throws Exception {
+		// TODO Auto-generated method stub
+		List<BIrdBeans> birdList= new ArrayList<BIrdBeans>();
+		try{
+			session = sessionfactory.openSession();
+			Criteria criteria = session.createCriteria(BIrd.class);
+			birdList = criteria.addOrder(Order.asc("category")).list();
+			System.out.println(birdList);
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	return birdList;
+	}
+
+	@Override
+	public List<BIrd> birdListByBirdId(int birdId) throws Exception {
+		// TODO Auto-generated method stub
+		List<BIrd> getBird = new ArrayList<BIrd>();
+		try {
+			System.out.println("inside");
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			String sql = "SELECT * FROM tbl_bird WHERE birdId = "+birdId;
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(BIrd.class);
+			getBird = query.list();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getBird;
+	}
+
+	@Override
+	public boolean updateBird(BIrd bird) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+        try
+        {
+            session = sessionfactory.openSession();
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(bird);
+            transaction.commit();
+            session.close();
+            b = true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return b;
 	}
 }

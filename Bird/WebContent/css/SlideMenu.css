@@ -1,0 +1,294 @@
+
+.mask {/*Edited*/
+   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.58);
+}
+
+
+nav.menu {/*Edited*/
+    position: fixed;
+    z-index: 20;
+    background-color: #121212;
+	background-image:url(../Images/SLideMenuBackGround.png);
+	background-repeat:repeat;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+	float:left;
+-webkit-box-shadow: 2px 1px 4px -1px rgba(143,143,143,0.43);
+-moz-box-shadow: 2px 1px 4px -1px rgba(143,143,143,0.43);
+box-shadow: 2px 1px 4px -1px rgba(143,143,143,0.43);
+}
+nav.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	width:300px;
+	margin:0 auto;
+}
+nav.menu a {/*Edited*/
+    font-weight: 300;
+    color: #fff;
+	text-decoration:none;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/* slide menu left and right, push menu left and right */
+nav.slide-menu-left,
+nav.slide-menu-right,
+nav.push-menu-left,
+nav.push-menu-right {
+width: 290px;
+    height: 77%;
+	margin-top:2px;
+
+}
+nav.slide-menu-left li,
+nav.slide-menu-right li,
+nav.push-menu-left li,
+nav.push-menu-right li {
+    display: block;
+    text-align: left;
+  background-color:#121212;
+  background-image:url(../Images/SLideMenuBackGround.png);
+	background-repeat:repeat;
+}
+
+nav.slide-menu-left li:first-child,
+nav.slide-menu-right li:first-child,
+nav.push-menu-left li:first-child,
+nav.push-menu-right li:first-child {
+    border-top: none
+}
+nav.slide-menu-left li:last-child,
+nav.slide-menu-right li:last-child,
+nav.push-menu-left li:last-child,
+nav.push-menu-right li:last-child {
+    border-bottom: none
+}
+nav.slide-menu-left a,/*Edited*/
+nav.slide-menu-right a,
+nav.push-menu-left a,
+nav.push-menu-right a {
+    display: block;
+padding-left:5px;
+  padding-right:5px;
+  padding-top:12px;
+  height: 24px;
+  font-size: 12px;
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 8px;
+}
+nav.slide-menu-left button.close-menu,
+nav.slide-menu-right button.close-menu,
+nav.push-menu-left button.close-menu,
+nav.push-menu-right button.close-menu {
+    margin: 10px 0;
+    padding: 10px 30px;
+    background-color: #3184a1;
+    color: #fff;
+}
+nav.slide-menu-left,
+nav.push-menu-left {
+    left: -400px
+}
+nav.slide-menu-right,
+nav.push-menu-right {
+    right: -300px
+}
+body.sml-open nav.slide-menu-left,
+body.pml-open nav.push-menu-left {
+    left: 0
+}
+body.smr-open nav.slide-menu-right,
+body.pmr-open nav.push-menu-right {
+    right: 0
+}
+body.pml-open #wrapper {
+    left: 300px
+}
+body.pmr-open #wrapper {
+    left: -300px
+}
+
+
+.EditedF_OpenMenu{
+  
+    float: right;
+    top: 0;
+    left: 5px;
+    cursor: pointer;
+    margin-top: -70px;
+    padding-right: 33px;
+}
+
+.EditedF_CLoseMenu{/*Edited*/
+  height: 37px;
+  width: 50px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 8px;
+  left: 313px;
+  cursor: pointer;
+  background-image:url(../Images/BackArrow.png);
+}
+#DIVtravelTTour ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVcusubmenu ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVBOOKING ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+
+/*New SLide Menu Css-Dt-20-05-15*/
+.SLideMenu_header
+{
+width:290px;
+height:40px;
+color:#fff;
+font-family:Arial, Helvetica, sans-serif;
+font-size:13px;
+font-weight:bold;
+}
+#DIVTarifsubmenu ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVCarManagement ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVDriverManagement ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVBookingManagement ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+#DIVaccount ul li a/*Edited*/
+{
+font-size:12px;
+margin-left:24px;
+color:#c1c0c0;
+font-family:Arial, Helvetica, sans-serif;
+border-bottom:none;
+}
+/*New SLide Menu Css-Dt-20-05-15*/
+div.menu-trigger {
+		position: fixed;
+		top: 10px;
+		left: 10px;
+		width: 36px;
+		height: 36px;
+		background: #dfe5eb;
+		cursor: pointer;
+		border-radius: 5px;
+
+		-moz-transition: all 300ms;
+		-webkit-transition: all 300ms;
+		transition: all 300ms;
+
+		&:before { 
+			content: '\e801';
+			display: inline-block;
+			width: 36px;
+			height: 36px;
+			color: black;
+			font-family: "ico";
+			font-style: normal;
+			font-size: 1.2em;
+			font-weight: normal;
+			font-variant: normal;
+			text-align: center;
+			text-transform: none;
+			line-height: 36px;
+		}
+
+		&:hover { background: #556270; &:before { color: #fcfeff; } }
+	}
+}
+.menu-trigger::before {
+    content: "";
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    color: #000;
+    font-family: "ico";
+    font-style: normal;
+    font-size: 1.2em;
+    font-weight: normal;
+    font-variant: normal;
+    text-align: center;
+    text-transform: none;
+    line-height: 36px;
+}
+
+
+.boxclose{
+    float:right;
+    margin-top:-12px;
+    margin-right:-10px;
+    cursor:pointer;
+    color: #fff;
+   border-radius: 30px;
+   
+   
+   
+    display: inline-block;
+    line-height: 0px;
+    padding: 11px 3px;       
+}
+
+.boxclose:before {
+    content: "";
+}
+nav.slide-menu-left a:hover{
+color:#AF7030;
+}
+#DIVUsertype a{
+border-bottom:0px;
+}

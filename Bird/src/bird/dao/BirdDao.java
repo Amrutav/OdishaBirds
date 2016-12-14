@@ -1,7 +1,7 @@
 package bird.dao;
 
 import bird.entity.BirdDetail;
-import bird.entity.Category;
+
 import bird.entity.BIrd;
 import bird.entity.BIrdBeans;
 import bird.entity.BirdBean;
@@ -26,4 +26,10 @@ public interface BirdDao
 	public abstract BirdDetail validateBirdDetails(String bdId) throws Exception;
 
 	public abstract boolean deleteBird(BIrd bird)throws Exception;
+
+	public abstract List<BIrdBeans> birdList() throws Exception;
+
+	public abstract List<BIrd> birdListByBirdId(int birdId)throws Exception;
+
+	public abstract boolean updateBird(BIrd bird)throws Exception;
 }

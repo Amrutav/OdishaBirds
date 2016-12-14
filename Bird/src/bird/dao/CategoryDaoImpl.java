@@ -26,7 +26,7 @@ public class CategoryDaoImpl implements CategoryDao{
         {
             session = sessionfactory.openSession();
             transaction = session.beginTransaction();
-            session.save(category);
+            session.saveOrUpdate(category);
             transaction.commit();
             session.close();
             b = true;
@@ -92,5 +92,24 @@ public class CategoryDaoImpl implements CategoryDao{
 		}
 		return b;
 	}
+
+	@Override
+	public List<Category> getCategoryListById(int categoryId) throws Exception {
+		// TODO Auto-generated method stub
+		List<Category> getBoardListbyuserId = new ArrayList<Category>();
+		try {
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			String sql = "SELECT * FROM tbl_category WHERE categoryId = "+categoryId;
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(Category.class);
+			getBoardListbyuserId = query.list();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getBoardListbyuserId;
+	}
+
 	
 }

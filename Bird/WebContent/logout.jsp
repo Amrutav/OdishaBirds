@@ -4,15 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<center><font size="20">Odisha Birds</font></center>
-	<ul>
-	<li><a href="addCategory.jsp"> Add Bird Category</a></li>
-	<li><a href="addBird.jsp"> Add Birds</a></li>
-	<li><a href="addBirdDetails.jsp"> Add Bird Details</a></li>
-	<li><a href="addBirdImage.jsp"> Add Bird Images</a></li>
-	</ul>
+<script type="text/javascript" src="js/logout.js"></script>
 </body>
 </html>

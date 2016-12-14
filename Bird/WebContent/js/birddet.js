@@ -1,5 +1,15 @@
 $(document).ready(function(){
 	
+	
+	var uid=sessionStorage.getItem("UserData");	
+	console.log(uid);
+	alert(uid);
+		
+	if(uid==null){
+		alert("Please login to continue")
+		window.location="Login.jsp";
+		return false;
+	}
 		$('#categoryId').change(function() {
 			$('#bdId').empty();
 		  

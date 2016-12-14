@@ -2,14 +2,20 @@ package bird.cont;
 
 import bird.entity.*;
 
+
+
 import bird.service.BirdService;
-import java.io.*;
+import bird.utils.FileOperations;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,7 +35,250 @@ public class BirdCont
     @Autowired
 	BirdService birdServices;
     private boolean flag;
+    String status=null;
     static final Logger logger = Logger.getLogger(BirdDetail.class);
+    String name=null;
+ 
+    
+    //Bird
+    
+    //Add New Bird
+    
+    @RequestMapping(value="/addBird",method=RequestMethod.POST)
+    public void addNewBird(HttpServletRequest requst,HttpServletResponse response,@RequestParam(value="birdImage",required=false) MultipartFile image)throws ServletException, IOException
+    {
+        BIrd imageObj = null;
+        String imgFile = null;
+        String fileName = requst.getParameter("birdName");
+        System.out.println("controller body");
+        int catId = Integer.parseInt(requst.getParameter("categoryId"));
+        Category category=new Category();
+        category.setCategoryId(catId);
+        String hostname = "http://85.25.196.222:8083/";
+        String fullPath = null;
+        System.out.println("controller body");
+        try
+        {
+            if(image != null)
+            {
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                imgFile = FileOperations.saveImage(fileName+dateFormat.format(date).toString()+".jpg", image);
+                fullPath = hostname+imgFile;
+                imageObj = new BIrd();
+                imageObj.setCategory(category);
+                imageObj.setBirdImage(fullPath);
+                imageObj.setBirdName(fileName);
+                flag = birdServices.addNewBird(imageObj);
+                if(flag){
+                	status="SUCCESS";
+                } else{
+                	status="UnSuccessful";
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            logger.error("Error occours in : ", e);
+        }
+        response.sendRedirect("http://85.25.196.222:8083/Birds/addBird.jsp");
+    }
+    
+    
+//Bird List By Category Id 
+    
+    @RequestMapping(value="/BirdListByCatId",method=RequestMethod.GET)
+    public @ResponseBody List<BIrdBeans> getBirdListByCatId(@RequestParam(value="categoryId",required=false)int categoryId){
+        List<BIrdBeans> birdListByCatId = new ArrayList<BIrdBeans>();
+        try{
+            System.out.println("HELLO");
+            birdListByCatId = birdServices.birdListByCatId(categoryId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return birdListByCatId;
+    }
+    
+    
+//Bird List By Bird Id 
+    
+    @RequestMapping(value="/BirdListByBirdId",method=RequestMethod.GET)
+    public @ResponseBody List<BIrd> getBirdListByBirdId(@RequestParam(value="birdId",required=false)int birdId){
+        List<BIrd> birdListByBirdId = new ArrayList<BIrd>();
+        try{
+            System.out.println("HELLO");
+            birdListByBirdId = birdServices.birdListByBirdId(birdId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return birdListByBirdId;
+    }
+    
+    
+//Bird List by category in ascending order
+    
+    @RequestMapping(value="/BirdList",method=RequestMethod.GET)
+    public @ResponseBody List<BIrdBeans> getBirdList(){
+        List<BIrdBeans> birdList = new ArrayList<BIrdBeans>();
+        try{
+            System.out.println("Incoming");
+            birdList = birdServices.birdList();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return birdList;
+    }
+    
+    
+//Validate the Bird by Name
+    
+    @RequestMapping(value = "/validateBird", method = RequestMethod.GET)
+	public @ResponseBody BIrdJson validateBirdName( @RequestParam(value = "birdName") String birdName) {
+    	BIrdJson birdJsonResponse=new BIrdJson();
+	    try {
+	        BIrd category = birdServices.validateBirdName(birdName);
+	        if(category!=null){
+	        	birdJsonResponse.setStatus("EXIST");
+	        }else{
+	        	birdJsonResponse.setStatus("NOT EXIST");
+	        }
+	    	return birdJsonResponse;
+	       } catch (Exception e) {
+	    	logger.error("Exception occurs in", e);
+	    	birdJsonResponse.setStatus(e.toString());
+	    }
+	   	return birdJsonResponse;
+	}
+    
+    
+ //Search Bird By Name
+    
+    @RequestMapping(value="/searchByBirdName", method = RequestMethod.GET)
+	public @ResponseBody List<BIrd> getBirdList(@RequestParam(value="birdname") String birdName ){
+		List<BIrd> list= new ArrayList<BIrd>();
+		try{
+			list=birdServices.searchByName(birdName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+    
+    
+ //Delete the bird 
+    
+    @RequestMapping(value = "/deleteBird", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody BIrdJson deleteImage(@Valid @RequestBody BIrd bird){
+    	BIrdJson birdJsonResponse = new BIrdJson();
+    	List<BIrd> birdByBirdId = new ArrayList<BIrd>();
+    	int birdId=bird.getBirdId();
+		System.out.println(bird.getBirdId());
+		
+		try{
+			System.out.println("Incoming");
+			birdByBirdId = birdServices.birdListByBirdId(birdId);
+			for(int i=0;i<birdByBirdId.size();i++){ 
+				name=birdByBirdId.get(i).getBirdImage();
+				 }
+			System.out.println(name);
+			flag = birdServices.deleteBird(bird);
+			if(flag){
+				FileOperations.deleteFile(name);
+				birdJsonResponse.setStatus("SUCCESS");
+			}else{
+				birdJsonResponse.setStatus("FAILED");
+			}
+			return birdJsonResponse;
+		}catch (Exception e) {
+			birdJsonResponse.setStatus(e.toString());
+			logger.error("Exception Occurs in : ", e);
+		}
+		return birdJsonResponse;
+	}
+    
+    
+//Update Bird    
+    
+    @RequestMapping(value="/updateBird", method = RequestMethod.POST)
+	public void updateBird(HttpServletRequest requst,HttpServletResponse response, @RequestParam(value="birdImage",required=false)MultipartFile image)throws ServletException, IOException{
+		CategoryJsonResponse categoryJsonRespons = new CategoryJsonResponse();
+		BIrd bird=null;
+		String imgFile=null;
+		String fileName=requst.getParameter("birdName");
+		System.out.println(fileName);
+		String hfname=requst.getParameter("hfCatId2");
+		String name=requst.getParameter("hfCatId3");
+		System.out.println("Hidden field is: "+hfname);
+		System.out.println("image field name is: "+name);
+		int id=Integer.parseInt(requst.getParameter("hfCatId"));
+		int catid=Integer.parseInt(requst.getParameter("categoryId"));
+		Category category=new Category();
+		category.setCategoryId(catid);
+		String hostname="http://85.25.196.222:8083/";
+		String fullPath=null;
+		System.out.println("Update");
+		if(!hfname.equals(name)){
+			System.out.println("image update ");
+		
+		try{
+			if(image != null){
+				Date date = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss") ;
+				imgFile=FileOperations.saveImage(fileName+dateFormat.format(date).toString()+".jpg",image);
+			fullPath=hostname+imgFile;	
+			bird=new BIrd();
+			bird.setBirdId(id);
+			bird.setCategory(category);
+			bird.setBirdName(fileName);
+			bird.setBirdImage(fullPath);
+			boolean flag=birdServices.updateBird(bird);
+			if(flag){
+				FileOperations.deleteFile(name);
+				status="SUCCESS";
+			}else{
+				status="UNSUCCESS";
+			}
+			}
+			
+		}catch(Exception e){
+			logger.error("Error occours in : ",e);
+			categoryJsonRespons.setStatus(e.toString());
+		}
+		}
+		else if (hfname.equals(name)) {
+			System.out.println("only update ");
+			try {
+				bird=new BIrd();
+				bird.setBirdId(id);
+				bird.setCategory(category);
+				bird.setBirdName(fileName);
+				bird.setBirdImage(hfname);
+				boolean flag=birdServices.updateBird(bird);
+				if(flag){
+					FileOperations.deleteFile(name);
+					status="SUCCESS";
+				}else{
+					status="UNSUCCESS";
+				}
+			} catch (RuntimeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		response.sendRedirect("http://85.25.196.222:8083/Birds/addBird.jsp");
+	}
+    
+    
+    
+    
+    //Bird Details
+    
+    
+    //Add Bird Details
     
     @RequestMapping(value="/addBirdDetail", method = RequestMethod.POST)
      public @ResponseBody BirdJsonResponse addBird(HttpServletRequest requst,@RequestParam(value="birdSound",required=false) MultipartFile sound){
@@ -59,7 +308,7 @@ public class BirdCont
             {
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                soundFile = saveSound(fileName+dateFormat.format(date).toString()+".mp3",sound);
+                soundFile = FileOperations.saveSound(fileName+dateFormat.format(date).toString()+".mp3",sound);
                 fullPath = hostname+soundFile;
                 bird = new BirdDetail();
                 bird.setBirdSound(fullPath);
@@ -92,6 +341,9 @@ public class BirdCont
         return birdJsonRespons;
     }
 
+    
+    //View Bird Details By Bird Id
+    
     @RequestMapping(value="/BirdDetailsListByBirdId", method = RequestMethod.GET)
     public @ResponseBody List<BirdBean> getBirdListByCategoryId(@RequestParam(value = "birdId")int birdId)
     {
@@ -108,143 +360,10 @@ public class BirdCont
         }
         return birdDetailsListByBirdId;
     }
-
-    @RequestMapping(value="/addBird",method=RequestMethod.POST)
-    public @ResponseBody BIrdJson addBirdImage(HttpServletRequest requst,@RequestParam(value="birdImage",required=false) MultipartFile image)
-    {
-    	BIrdJson imageJsonRespons = new BIrdJson();
-        BIrd imageObj = null;
-        String imgFile = null;
-        String fileName = requst.getParameter("birdName");
-        System.out.println("controller body");
-        int catId = Integer.parseInt(requst.getParameter("categoryId"));
-        Category category=new Category();
-        category.setCategoryId(catId);
-        String hostname = "http://85.25.196.222:8083/";
-        String fullPath = null;
-        System.out.println("controller body");
-        try
-        {
-            if(image != null)
-            {
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                imgFile = saveImage(fileName+dateFormat.format(date).toString()+".jpg", image);
-                fullPath = hostname+imgFile;
-                imageObj = new BIrd();
-                imageObj.setCategory(category);
-                imageObj.setBirdImage(fullPath);
-                imageObj.setBirdName(fileName);
-                flag = birdServices.addNewBird(imageObj);
-                if(flag){
-                    imageJsonRespons.setStatus("SUCCSS");
-                } else{
-                    imageJsonRespons.setStatus("FAILED");
-                }
-            }
-        }
-        catch(Exception e)
-        {
-            logger.error("Error occours in : ", e);
-            imageJsonRespons.setStatus(e.toString());
-        }
-        return imageJsonRespons;
-    }
     
-    @RequestMapping(value="/BirdListByCatId",method=RequestMethod.GET)
-    public @ResponseBody List<BIrdBeans> getBirdListByCatId(@RequestParam(value="categoryId",required=false)int categoryId){
-        List<BIrdBeans> birdListByBirdId = new ArrayList<BIrdBeans>();
-        try{
-            System.out.println("HELLO");
-            birdListByBirdId = birdServices.birdListByCatId(categoryId);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return birdListByBirdId;
-    }
+        
     
-    @RequestMapping(value="/searchByBirdName", method = RequestMethod.GET)
-	public @ResponseBody List<BIrd> getBirdList(@RequestParam(value="birdname") String birdName ){
-		List<BIrd> list= new ArrayList<BIrd>();
-		try{
-			list=birdServices.searchByName(birdName);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
-    
-    private String saveImage(String filename, MultipartFile image)throws RuntimeException, IOException {
-
-		//save image starts
-		String imgSrc=null;
-		try {
-			
-			String rootPath = System.getProperty("catalina.home");
-			logger.debug(rootPath);
-			logger.info(rootPath);
-		    File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdImages");
-		    if (!dir.exists())
-		     dir.mkdirs();
-			File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
-			FileUtils.writeByteArrayToFile(file, image.getBytes());
-			logger.debug("Go to the location:  "
-					+ file.toString()
-					+ " on your computer and verify that the image has been stored.");
-			imgSrc= "BirdImages" + File.separator + filename;
-			return imgSrc;
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("Failed!", e);
-		}
-		return imgSrc;
-		//save image ends
-	}
-    
-    private String saveSound(String filename, MultipartFile sound)throws RuntimeException, IOException{
-    	
-        String soundSrc = null;
-        try{
-        String rootPath = System.getProperty("catalina.home");
-        logger.debug(rootPath);
-        logger.info(rootPath);
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdSounds");
-        if(!dir.exists())
-        {
-            dir.mkdirs();
-        }
-        File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
-        FileUtils.writeByteArrayToFile(file, sound.getBytes());
-        logger.debug("Go to the location:  "
-				+ file.toString()
-				+ " on your computer and verify that the sound has been stored.");
-        soundSrc = "BirdSounds" + File.separator + filename;
-        return soundSrc;
-        }catch(Exception e){
-        	e.printStackTrace();
-			logger.error("Failed!", e);
-        }
-        return soundSrc;
-    }
-    
-    @RequestMapping(value = "/validateBird", method = RequestMethod.GET)
-	public @ResponseBody BIrdJson validateBirdName( @RequestParam(value = "birdName") String birdName) {
-    	BIrdJson birdJsonResponse=new BIrdJson();
-	    try {
-	        BIrd category = birdServices.validateBirdName(birdName);
-	        if(category!=null){
-	        	birdJsonResponse.setStatus("EXIST");
-	        }else{
-	        	birdJsonResponse.setStatus("NOT EXIST");
-	        }
-	    	return birdJsonResponse;
-	       } catch (Exception e) {
-	    	logger.error("Exception occurs in", e);
-	    	birdJsonResponse.setStatus(e.toString());
-	    }
-	   	return birdJsonResponse;
-	}
+    //Validate the Bird Details that the details are present or not
     
     @RequestMapping(value = "/validateBirdDetails", method = RequestMethod.GET)
 	public @ResponseBody BirdJsonResponse validateBirdDetails( @RequestParam(value = "bdId") String bdId) {
@@ -264,22 +383,4 @@ public class BirdCont
 	   	return birdJsonResponse;
 	}
     
-    @RequestMapping(value = "/deleteBird", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody BIrdJson deleteImage(@Valid @RequestBody BIrd bird){
-    	BIrdJson birdJsonResponse = new BIrdJson();
-		System.out.println(bird.getBirdId());
-		try{
-			flag = birdServices.deleteBird(bird);
-			if(flag){
-				birdJsonResponse.setStatus("SUCCESS");
-			}else{
-				birdJsonResponse.setStatus("FAILED");
-			}
-			return birdJsonResponse;
-		}catch (Exception e) {
-			birdJsonResponse.setStatus(e.toString());
-			logger.error("Exception Occurs in : ", e);
-		}
-		return birdJsonResponse;
-	}
 }

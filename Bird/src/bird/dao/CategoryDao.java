@@ -13,4 +13,8 @@ public interface CategoryDao
 	public Category validatecategory(String catName)throws Exception;
 
 	public boolean deleteCategory(Category category)throws Exception;
+
+	public List<Category> getCategoryListById(int categoryId)throws Exception;
+
+
 }
