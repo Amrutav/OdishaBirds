@@ -131,6 +131,7 @@ function assignUpdateValue(id){
 	    	 var select=$("#categoryId");
 	    	 $("#categoryId").empty();
 	    	 $('<option>').text(result[0].category.categoryName).val(result[0].category.categoryId).appendTo(select);
+	    	 $('#categoryId').prop("disabled", true);
 	    	 $("#birdName").val(BdName);
 	    	 $("#BirdImage").attr('src',Image);
 	    	 $("#BirdImage").attr('value',Image);

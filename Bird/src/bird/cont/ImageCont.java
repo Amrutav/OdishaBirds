@@ -3,11 +3,15 @@ package bird.cont;
 import bird.entity.*;
 
 import bird.service.ImageService;
+import bird.utils.FileOperations;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
@@ -29,10 +33,11 @@ public class ImageCont{
     @Autowired
 	private ImageService imageServices;
     private boolean flag;
+    String status=null;
     static final Logger logger = Logger.getLogger(Image.class);
    
     @RequestMapping(value="/addBirdImage",method=RequestMethod.POST)
-    public @ResponseBody ImageJsonResponse addBirdImage(HttpServletRequest requst,@RequestParam(value="birdImage",required=false) MultipartFile image)
+    public void addBirdImage(HttpServletRequest requst,HttpServletResponse response,@RequestParam(value="birdImage",required=false) MultipartFile image)throws ServletException, IOException
     {
         ImageJsonResponse imageJsonRespons = new ImageJsonResponse();
         Image imageObj = null;
@@ -50,7 +55,7 @@ public class ImageCont{
             {
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                imgFile = saveImage(fileName+dateFormat.format(date).toString()+".jpg", image);
+                imgFile = FileOperations.saveImage(fileName+dateFormat.format(date).toString()+".jpg", image);
                 fullPath = hostname+imgFile;
                 imageObj = new Image();
                 imageObj.setBird(bird);
@@ -59,18 +64,18 @@ public class ImageCont{
                 flag = imageServices.addBirdImage(imageObj);
                 System.out.println(flag);
                 if(flag){
-                    imageJsonRespons.setStatus("SUCCSS");
+                	status="SUCCESS";
                 } else{
-                    imageJsonRespons.setStatus("FAILED");
+                	status="UnSuccessful";
                 }
             }
         }
         catch(Exception e)
         {
             logger.error("Error occours in : ", e);
-            imageJsonRespons.setStatus(e.toString());
+            
         }
-        return imageJsonRespons;
+        response.sendRedirect("http://85.25.196.222:8083/Birds/addBirdImage.jsp");
     }
 
     @RequestMapping(value="/BirdImageListByBirdId",method=RequestMethod.GET)
@@ -84,33 +89,6 @@ public class ImageCont{
         }
         return birdImageListByBirdId;
     }
-
-    private String saveImage(String filename, MultipartFile image)throws RuntimeException, IOException {
-
-		//save image starts
-		String imgSrc=null;
-		try {
-			
-			String rootPath = System.getProperty("catalina.home");
-			logger.debug(rootPath);
-			logger.info(rootPath);
-		    File dir = new File(rootPath + File.separator + "webapps" + File.separator + "BirdImages");
-		    if (!dir.exists())
-		     dir.mkdirs();
-			File file = new File(dir.getAbsolutePath()+ File.separator+ filename);
-			FileUtils.writeByteArrayToFile(file, image.getBytes());
-			logger.debug("Go to the location:  "
-					+ file.toString()
-					+ " on your computer and verify that the image has been stored.");
-			imgSrc= "BirdImages" + File.separator + filename;
-			return imgSrc;
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("Failed!", e);
-		}
-		return imgSrc;
-		//save image ends
-	}
     
     @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ImageJsonResponse deleteImage(@Valid @RequestBody Image image){

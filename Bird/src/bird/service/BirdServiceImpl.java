@@ -80,4 +80,22 @@ public class BirdServiceImpl implements BirdService{
 		// TODO Auto-generated method stub
 		return birdDao.updateBird(bird);
 	}
+
+	@Override
+	public List<BirdDetail> birdDetListByBirdDetId(int birdDetailId) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.birdDetListByBirdDetId(birdDetailId);
+	}
+
+	@Override
+	public boolean deleteBirdDetails(BirdDetail bird) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.deleteBirdDetails(bird);
+	}
+
+	@Override
+	public boolean updateBirdDetails(BirdDetail bird) throws Exception {
+		// TODO Auto-generated method stub
+		return birdDao.updateBirdDetails(bird);
+	}
 }

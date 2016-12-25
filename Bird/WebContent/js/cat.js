@@ -32,6 +32,7 @@ $(document).ready(function(){
 					'categoryName':$('#catName').val()
 			};
 		var categoryName=$('#catName').val();
+		
 		$.ajax({
 		    url: 'category/validateCat?categoryName='+categoryName,
 		    type: 'get',
@@ -60,12 +61,14 @@ $(document).ready(function(){
 									}
 							}
 						});
-		    }else if (result.status=="EXIST"){	
+		}else if (result.status=="EXIST"){	
 		    	$("#catName").val('');
 		    	alert("This Category is taken. Take Another");
 		}
 	}
 		});
+		
+		    
 		});
 	
 

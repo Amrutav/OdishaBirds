@@ -67,11 +67,10 @@
                             </div> 
                             <div class="col-lg-6">
                                 <div class="col-lg-5" style="padding-top: 8px;">
-                                    <b>Image</b>
-                                    
+                                    <b>Image</b> 
                                     <div class="Div_Col_Button_Browse_Btn active">
                     Browse Image
-                    	<input type="file" id="birdImage" value="Browse Image" class="FileUpload_Css" name="birdImage" onchange="checkfile(this);" />
+                    	<input type="file" id="birdImage" value="Browse Image" class="FileUpload_Css" name="birdImage" onchange="checkfile(this);resizeInCanvas(this);"/>
                     	
                     </div>
 
@@ -96,8 +95,8 @@
                                 <div data-toggle="modal" id="ADDSubCat">
                                     
                                    
-                                   <input type="submit" name="btnAddCat" value="Add Birds" onclick="return validate();" id="btnAddCat" class="btn btn-primary">
-                                    <input type="submit" name="btnUpdCat" onclick="return updateValidate();" value="Update Birds" id="btnUpdCat" class="btn btn-default">
+                                   <input type="submit" name="btnAddCat" value="Add Bird" onclick="return validate();" id="btnAddCat" class="btn btn-primary">
+                                    <input type="submit" name="btnUpdCat" onclick="return updateValidate();" value="Update Bird" id="btnUpdCat" class="btn btn-default">
                                    <input type="reset" name="btnReset" value="Reset" id="btnReset" class="btn btn-danger">
                                    <input type="hidden" name="hfCatId" id="hfCatId">
                                    <input type="hidden" name="hfCatId2" id="hfCatId2">
@@ -186,6 +185,7 @@
 	   else
 	    return true;
 	  } 
+	
 
 
 	 function validate() {
@@ -236,6 +236,18 @@
 	            return true;
 	        }
 	    }
+	 
+	 function resizeInCanvas(img){
+		  var perferedWidth = 300;
+		  var ratio = perferedWidth / img.width;
+		  var canvas = $("<canvas>")[0];
+		  canvas.width = img.width * ratio;
+		  canvas.height = img.height * ratio;
+		  var ctx = canvas.getContext("2d");
+		  ctx.drawImage(img, 0,0,canvas.width, canvas.height);
+		  return canvas.toDataURL();
+		}
+   
 </script>
 <script type="text/javascript" src="js/bird.js"></script>
 <script src="js/classie.js"></script>

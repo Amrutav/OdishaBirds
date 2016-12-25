@@ -31,4 +31,10 @@ public interface BirdService{
 	public abstract List<BIrd> birdListByBirdId(int birdId)throws Exception;
 
 	public abstract boolean updateBird(BIrd bird)throws Exception;
+
+	public abstract List<BirdDetail> birdDetListByBirdDetId(int birdDetailId)throws Exception;
+
+	public abstract boolean deleteBirdDetails(BirdDetail bird)throws Exception;
+
+	public abstract boolean updateBirdDetails(BirdDetail bird)throws Exception;
 }

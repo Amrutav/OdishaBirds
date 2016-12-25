@@ -2071,6 +2071,13 @@ th {
   max-width: 100%;
   margin-bottom: 20px;
 }
+
+.table_gallery {
+    width: 100%;
+    max-width: 27%;
+    margin-bottom: 20px;
+	margin-top: 15px;
+}
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
@@ -2800,6 +2807,29 @@ select[multiple].form-group-lg .form-control {
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+.btn-gallery {
+  display: inline-block;
+  padding: 6px 22px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,
@@ -2883,6 +2913,12 @@ fieldset[disabled] .btn-default.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
+.btn-del-gallery {
+  color: #fff;
+    background-color: #ac2925;
+    border-color: #ac2925;
+}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.focus,

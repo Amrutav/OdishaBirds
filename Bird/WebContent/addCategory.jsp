@@ -144,14 +144,14 @@
 
         var categoryName = document.getElementById("catName").value;
         
-        if (categoryName =="") {
+        if (categoryName == "") {
             alert("Please Enter Catagory");
-            return false;
+            document.getElementById("catName").focus();
+			return false;
+        } else{
+        	return true;
         }
-         
-        else {
-            return true;
-        }
+        
     }
 </script>
 <script type="text/javascript" src="js/cat.js"></script>

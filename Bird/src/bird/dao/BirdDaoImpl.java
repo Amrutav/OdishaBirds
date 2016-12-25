@@ -4,6 +4,7 @@ import bird.entity.BirdDetail;
 
 
 
+
 import bird.service.BirdServiceImpl;
 import bird.entity.BIrd;
 import bird.entity.BIrdBeans;
@@ -269,6 +270,63 @@ public class BirdDaoImpl implements BirdDao{
 
 	@Override
 	public boolean updateBird(BIrd bird) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+        try
+        {
+            session = sessionfactory.openSession();
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(bird);
+            transaction.commit();
+            session.close();
+            b = true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return b;
+	}
+
+	@Override
+	public List<BirdDetail> birdDetListByBirdDetId(int birdDetailId) throws Exception {
+		// TODO Auto-generated method stub
+		List<BirdDetail> getBird = new ArrayList<BirdDetail>();
+		try {
+			System.out.println("inside");
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			String sql = "SELECT * FROM tbl_bird_detail WHERE birdDetailId = "+birdDetailId;
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(BirdDetail.class);
+			getBird = query.list();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getBird;
+	}
+
+	@Override
+	public boolean deleteBirdDetails(BirdDetail bird) throws Exception {
+		// TODO Auto-generated method stub
+		boolean b = false;
+		try {
+			session = sessionfactory.openSession();
+			transaction = session.beginTransaction();
+			session.delete(bird);
+			transaction.commit();
+			session.close();
+			b = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
+
+	@Override
+	public boolean updateBirdDetails(BirdDetail bird) throws Exception {
 		// TODO Auto-generated method stub
 		boolean b = false;
         try

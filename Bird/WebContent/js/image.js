@@ -1,50 +1,60 @@
 $(document).ready(function(){
 	
 	
-	var uid=sessionStorage.getItem("UserData");	
-	console.log(uid);
-	alert(uid);
+	var uid=sessionStorage.getItem("UserData");
 	
 	if(uid==null){
 		alert("Please login to continue")
 		window.location="Login.jsp";
 		return false;
 	}
-	$('#bdId').change(function() {
+		
+	$("#imageGallery").attr("action", "image/addBirdImage"); //Will set it
 	
-		$('#image').empty();
-		dataObject={
-		'birdId':$('#bdId').val()
-	};
-	var birdId=$('#bdId').val();
+	
+	//bird list in table
 	$.ajax({
-	    url: 'image/BirdImageListByBirdId?birdId='+birdId,
+	    url: 'bird/BirdList',
 	    type: 'get',
 		contentType: "application/json; charset=utf-8",
 		dataType:'json',
 		data:"",
 	    success: function(result) {
-	        console.log(result);
-	    var table=$("#image");
-	    $.each(result, function(i, item){
-	  var ImgID=result[i].imageId;
-	  
-	    	table+='<tr ><td>'+result[i].imageName+ '</td><td>' + '<img src="'+result[i].imagePath+'" width="100px" height="100px"  >'+ '</td><td>' +'<input type="button" value="Delete" onclick="deleteImage('+ImgID+');">'+'</td></tr>';
-	    	
-	  
-	    });  
-	    $('#image').append(table);
+	        var table=$("#image-table");
+		    $.each(result, function(i, item){
+		    		var BirdID=result[i].birdId;
+		  	    	table+='<tr><td>'+result[i].birdName+ '</td><td>' +'<div style="cursor:pointer;" onclick="viewGallery('+BirdID+');">'+"View"+'</td></tr>';
+		  	  
+		  	    });  
+		  	    $("#image-table").append(table);    
 	}
 	});
+	
+	//bird list by category id
+	$('#categoryId').change(function() {
+		$('#image-table tbody').empty();
+		var categoryId=$("#categoryId").val();
+	
+	$.ajax({
+	    url: 'bird/BirdListByCatId?categoryId='+categoryId,
+	    type: 'get',
+		contentType: "application/json; charset=utf-8",
+		dataType:'json',
+		data:"",
+	    success: function(result) {
+	    var tablee=$("#image-table");
+	    $.each(result, function(i, item){
+	    		var BirdID=result[i].birdId;
+	  	    	tablee+='<tr><td>'+result[i].birdName+ '</td><td>' +'<div style="cursor:pointer;" onclick="viewGallery('+BirdID+');">'+"View"+'</td></tr>';
+	  	  
+	  	    });  
+	  	    $("#image-table").append(tablee);  
+	}
 	});
 	
+	});
 	
-	
-	$('#categoryId').change(function() {
-	
-		  $('#bdId').empty();
-		});
-	
+	//Category List in Dropdown		
 	$.ajax({
 	    url: 'category/categoryList',
 	    type: 'get',
@@ -52,17 +62,21 @@ $(document).ready(function(){
 		dataType:'json',
 		data:"",
 	    success: function(result) {
-	    console.log(result);
 	    var select=$("#categoryId");
-	    $('<option>').text('--Select--').val(0).appendTo(select);
+	    $('<option>').text('-- Select Category --').val(0).appendTo(select);
 	    $.each(result, function(i, item){
 	    	$('<option>').text(item.categoryName).val(item.categoryId).appendTo(select);
 	    });   
 	}
 	});	
 	
-	$("#categoryId").blur(function(){
-
+	
+//Bird name by Category	
+	
+	$("#categoryId").change(function(){
+		$('#bdId').empty();
+		var selectbird=$("#bdId");
+	    $('<option>').text('-- Select Bird --').val(0).appendTo(selectbird);
 		dataObject = {
 			'categoryId':$('#categoryId').val()
   };
@@ -75,16 +89,41 @@ $(document).ready(function(){
 		dataType:'json',
 		data:JSON.stringify(dataObject),
 	    success: function(result) {
-	        console.log(result); 
-	        var select=$("#bdId");
-	        $('<option>').text('--Select--').val(0).appendTo(select);
-		    $.each(result, function(i, item){
-		    	$('<option>').text(item.birdName).val(item.birdId).appendTo(select);
+	        $.each(result, function(i, item){
+		    	$('<option>').text(item.birdName).val(item.birdId).appendTo(selectbird);
 		    });
 	}
 	});
 	});
+	
 });
+
+
+
+function viewGallery(id){
+	$('#image').empty();
+	dataObject={
+			'birdId':id
+		};
+	var birdId=id;
+	$.ajax({
+	    url: 'image/BirdImageListByBirdId?birdId='+birdId,
+	    type: 'get',
+		contentType: "application/json; charset=utf-8",
+		dataType:'json',
+		data:JSON.stringify(dataObject),
+	    success: function(result) {
+	      var tableI=$("#image");
+	    $.each(result, function(i, item){
+	  var ImgID=result[i].imageId;
+	  		
+	  tableI+='<td style="padding-left:10px"><img src="'+result[i].imagePath+'" width="100px" height="100px" padding-bottom: 2px><br>&nbsp;&nbsp;<input type="button" value="DELETE" class="btn btn-danger" onclick="deleteImage('+ImgID+');"></td>';
+	    	
+	  });  
+	    $('#image').append(tableI);
+	}
+	});
+}
 
 
 function deleteImage(id){
@@ -99,7 +138,11 @@ function deleteImage(id){
 		dataType:'json',
 		data:JSON.stringify(dataObject),
 	    success: function(result) {
-	        console.log(result);
+	    	if(result.status=="SUCCESS"){
+        		window.location="addBirdImage.jsp";
+	        }else{
+	        	alert("Error in deletion.");
+	        } 
 	      
 	}
 	});
