@@ -82,9 +82,9 @@ public class BirdServiceImpl implements BirdService{
 	}
 
 	@Override
-	public List<BirdDetail> birdDetListByBirdDetId(int birdDetailId) throws Exception {
+	public List<BirdDetail> birdDetListByBirdDetId(int bdId) throws Exception {
 		// TODO Auto-generated method stub
-		return birdDao.birdDetListByBirdDetId(birdDetailId);
+		return birdDao.birdDetListByBirdDetId(bdId);
 	}
 
 	@Override

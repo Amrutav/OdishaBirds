@@ -20,7 +20,7 @@ $(document).ready(function(){
 	    success: function(result) {
 	        console.log(result);
 	    var select=$("#categoryId");
-	    $('<option>').text('--Select--').val(0).appendTo(select);
+	    $('<option>').text('--Select Category--').val(0).appendTo(select);
 	    $.each(result, function(i, item){
 	    	$('<option>').text(item.categoryName).val(item.categoryId).appendTo(select);
 	    });   

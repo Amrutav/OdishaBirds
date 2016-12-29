@@ -33,7 +33,7 @@ public interface BirdDao
 
 	public abstract boolean updateBird(BIrd bird)throws Exception;
 
-	public abstract List<BirdDetail> birdDetListByBirdDetId(int birdDetailId)throws Exception;
+	public abstract List<BirdDetail> birdDetListByBirdDetId(int bdId)throws Exception;
 
 	public abstract boolean deleteBirdDetails(BirdDetail bird)throws Exception;
 

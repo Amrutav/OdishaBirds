@@ -385,11 +385,11 @@ public class BirdCont
 //BirdDetails List By BirdDet Id 
     
     @RequestMapping(value="/BirdDetListByBirdDetId",method=RequestMethod.GET)
-    public @ResponseBody List<BirdDetail> getBirdDetListByBirdDetId(@RequestParam(value="birdDetailId",required=false)int birdDetailId){
+    public @ResponseBody List<BirdDetail> getBirdDetListByBirdDetId(@RequestParam(value="bdId",required=false)int bdId){
         List<BirdDetail> birdListByBirdId = new ArrayList<BirdDetail>();
         try{
             System.out.println("HELLO");
-            birdListByBirdId = birdServices.birdDetListByBirdDetId(birdDetailId);
+            birdListByBirdId = birdServices.birdDetListByBirdDetId(bdId);
         }catch(Exception e){
             e.printStackTrace();
         }

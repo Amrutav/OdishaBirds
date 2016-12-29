@@ -289,14 +289,14 @@ public class BirdDaoImpl implements BirdDao{
 	}
 
 	@Override
-	public List<BirdDetail> birdDetListByBirdDetId(int birdDetailId) throws Exception {
+	public List<BirdDetail> birdDetListByBirdDetId(int bdId) throws Exception {
 		// TODO Auto-generated method stub
 		List<BirdDetail> getBird = new ArrayList<BirdDetail>();
 		try {
 			System.out.println("inside");
 			session = sessionfactory.openSession();
 			transaction = session.beginTransaction();
-			String sql = "SELECT * FROM tbl_bird_detail WHERE birdDetailId = "+birdDetailId;
+			String sql = "SELECT * FROM tbl_bird_detail WHERE BdId = "+bdId;
 			SQLQuery query = session.createSQLQuery(sql);
 			query.addEntity(BirdDetail.class);
 			getBird = query.list();

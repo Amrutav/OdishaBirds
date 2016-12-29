@@ -4,7 +4,7 @@ $(document).ready(function(){
 	var uid=sessionStorage.getItem("UserData");
 	
 	if(uid==null){
-		alert("Please login to continue")
+		alert("Please login to continue");
 		window.location="Login.jsp";
 		return false;
 	}

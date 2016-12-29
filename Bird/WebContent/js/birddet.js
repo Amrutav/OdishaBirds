@@ -23,7 +23,7 @@ $(document).ready(function(){
 	    success: function(result) {
 	        console.log(result);
 	    var select=$("#categoryId");
-	    $('<option>').text('--Select--').val(0).appendTo(select);
+	    $('<option>').text('--Select Category--').val(0).appendTo(select);
 	    $.each(result, function(i, item){
 	    	$('<option>').text(item.categoryName).val(item.categoryId).appendTo(select);
 	    });   
@@ -140,9 +140,9 @@ function assignUpdateValue(id){
 	$('#btnAddDetaisl').css("cursor","wait");
 	$("#birdDetails").attr("action", "bird/updateBirdDetails"); //Will set it
 	
-	var birdDetailId=id;
+	var bdId=id;
 	$.ajax({
-	    url: 'bird/BirdDetListByBirdDetId?birdDetailId='+birdDetailId,
+	    url: 'bird/BirdDetListByBirdDetId?bdId='+bdId,
 	    type: 'get',
 		contentType: "application/json; charset=utf-8",
 		dataType:'json',
